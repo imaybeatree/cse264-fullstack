@@ -1,0 +1,19 @@
+{
+  "name": "fullstackapp",
+  "version": "1.0.0",
+  "description": "",
+    "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node scripts/dev.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
