@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,10 @@
     "nodemon": "^3.1.14",
     "pg": "^8.20.0"
   },
-    "imports": {
+  "imports": {
     "#*": "./src/*"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1"
   }
 }

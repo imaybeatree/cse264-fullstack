@@ -48,7 +48,6 @@
 ## Available Scripts
 
 - `npm run dev` - Start all packages in development mode
-- `npm run build` - Build all packages
 - `npm run migrate` - Run database migrations
-- `npm run clean` - Clear database and reset migrations
+- `npm run resetdb` - Clear database and reset migrations
 

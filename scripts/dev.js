@@ -20,9 +20,7 @@ function runCommand(name, command, args, cwd) {
 }
 
 // backend
-runCommand("backend", "npx", ["nodemon", "app.js"], "./backend");
-console.log("Backend running yippee")
+runCommand("backend", "npm", ["run", "dev"], "./backend");
 
 // frontend
 runCommand("frontend", "npm", ["run", "dev"], "./frontend");
-console.log("Frontend running yippee")
