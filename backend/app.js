@@ -1,4 +1,6 @@
 import express from "express";
+import { corsConfig } from "#auth/cors.js";
+import { loginHandler, registerHandler } from "#auth/auth.handlers.js";
 const app = express();
 const PORT = 3000;
 
@@ -10,6 +12,11 @@ app.listen(PORT, (error) =>{
     }
 );
 
-app.get('/hello', (req, res) => {
+app.use(corsConfig());
+
+app.use(express.json()); // for parsing application/json
+
+app.get('/', (req, res) => {
   res.send('hello world')
 })
+app.post("/api/auth/register", registerHandler);

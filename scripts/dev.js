@@ -1,4 +1,4 @@
-const { spawn } = require("child_process");
+const { spawn, spawnSync } = require("child_process");
 
 function runCommand(name, command, args, cwd) {
   const proc = spawn(command, args, {
@@ -19,8 +19,18 @@ function runCommand(name, command, args, cwd) {
   });
 }
 
-// backend
-runCommand("backend", "npm", ["run", "dev"], "./backend");
+console.log("[prisma] generating client...");
+const result = spawnSync("npx", ["prisma", "generate"], {
+  cwd: ".",
+  stdio: "inherit",
+  shell: true,
+});
 
-// frontend
+if (result.status !== 0) {
+  console.error("[prisma] generate failed");
+  process.exit(result.status);
+}
+
+// start servers after prisma finishes
+runCommand("backend", "npm", ["run", "dev"], "./backend");
 runCommand("frontend", "npm", ["run", "dev"], "./frontend");

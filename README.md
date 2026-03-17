@@ -16,7 +16,7 @@
 ├─ root/
 │   ├─ frontend/     # React + Vite application
 │   ├─ backend/      # Express.js server
-│   └─ core/       # Shared types and utilities
+│   └─ prisma/       # Database migrations and schema
 ```
 
 ## Prerequisites
