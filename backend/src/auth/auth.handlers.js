@@ -61,6 +61,4 @@ export const loginHandler = async (req, res) => {
 
   }
 
-
-
 }

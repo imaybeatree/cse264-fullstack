@@ -1,5 +1,5 @@
 import { verifyJwtToken } from "./auth.token.handlers.js";
-//check jwt token and assign userId to res.locals
+// check jwt token and assign userId to res.locals
 export const middleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 

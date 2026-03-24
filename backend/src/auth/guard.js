@@ -1,4 +1,4 @@
-//check if middleware assigned res.locals
+// check if middleware assigned res.locals
 export const authenticated = (handler) => {
   return (req, res, next) => {
     try {

@@ -29,5 +29,3 @@ export const verifyJwtToken = (token) => {
     throw Error("Token verification failed")
     }
 }
-
-console.log(generateJwtToken("test"))
