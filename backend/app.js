@@ -1,6 +1,8 @@
 import express from "express";
 import { corsConfig } from "#auth/cors.js";
 import { loginHandler, registerHandler } from "#auth/auth.handlers.js";
+import { middleware } from "#auth/middleware.js";
+
 const app = express();
 const PORT = 3000;
 
@@ -16,7 +18,15 @@ app.use(corsConfig());
 
 app.use(express.json()); // for parsing application/json
 
-app.get('/', (req, res) => {
-  res.send('hello world')
-})
 app.post("/api/auth/register", registerHandler);
+app.post("/api/auth/login", loginHandler)
+
+// place protected endpoints below
+app.use(middleware)
+
+app.get("/test-auth", (req, res) => {
+  res.json({
+    message: "You are authenticated",
+    user: res.locals.user,
+  });
+});

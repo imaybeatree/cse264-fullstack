@@ -3,7 +3,7 @@ import "dotenv/config";
 
 const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret"
 
-export function generateJwtToken(userId){
+export const generateJwtToken = (userId) => {
     const payload = {
         userId: userId
     }
@@ -12,19 +12,22 @@ export function generateJwtToken(userId){
     return token
 }
 
-export function verifyJwtToken(token){
+export const verifyJwtToken = (token) => {
     try {
     const decoded = jwt.verify(token, JWT_SECRET);
     if (decoded.iss != "app"){
-        return { error: "Invalid Token" }
+        throw Error("Invalid token");
     }
     return decoded
     } catch (err) {
     if (err.name === "TokenExpiredError") {
-        return { error: "Token expired" };
+        throw Error("Token expired");
     }
     if (err.name === "JsonWebTokenError") {
-        return { error: "Invalid token" }
+        throw Error("Invalid token")
     }
+    throw Error("Token verification failed")
     }
 }
+
+console.log(generateJwtToken("test"))

@@ -1,8 +1,8 @@
 import { prisma } from "../db/db.js";
 import bcrypt from "bcrypt";
-import { generateJwtToken, verifyJwtToken } from "./auth.token.handlers.js";
+import { generateJwtToken } from "./auth.token.handlers.js";
 
-export async function registerHandler(req, res) {
+export const registerHandler = async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -20,7 +20,7 @@ export async function registerHandler(req, res) {
         passwordHash,
       },
     });
-    console.log(user)
+    console.log("created: ",user)
     const token = generateJwtToken(user.id)
 
     res.status(201).json({token: token})
@@ -40,14 +40,13 @@ export async function registerHandler(req, res) {
   }
 }
 
-export async function loginHandler(res, req){
+export const loginHandler = async (req, res) => {
   try{
     const { username, password } = req.body;
 
     const user = await prisma.user.findUnique({
     where: { username: `${username}` },
     });
-    console.log("login user: ",user)
     const ok = await bcrypt.compare(password, user.passwordHash);
 
     if (!ok) {

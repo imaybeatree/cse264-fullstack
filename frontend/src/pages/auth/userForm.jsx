@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { http } from "../lib/http";
-import { setToken } from "../lib/token";
-export default function CreateUserForm() {
+import { useNavigate } from "react-router";
+import { http } from "../../lib/http";
+import { setToken } from "../../lib/token";
+import "@/css/auth.css"
+export default function UserForm({api}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -12,11 +15,14 @@ export default function CreateUserForm() {
       username,
       password,
     };
-
-    const res = await http().post("/api/auth/register",body);
+    
+    const res = await http().post(api, body);
 
     const data = await res.json();
     setToken(data.token)
+    if (res.status == 200 || res.status == 201) {
+      navigate("/success")
+    }
   }
 
   return (
@@ -35,7 +41,9 @@ export default function CreateUserForm() {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button type="submit">Create User</button>
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
     </form>
   );
 }

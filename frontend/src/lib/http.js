@@ -1,7 +1,7 @@
 import { getToken } from "./token";
 const BACKEND_URL = "http://localhost:3000";
 
-export function http() {
+export const http = () => {
   const token = getToken();
 
   const baseHeaders = {
@@ -22,9 +22,9 @@ export function http() {
       },
     });
 
-    // auto logout on 401 (optional)
+    // auto logout on 401
     if (res.status === 401) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("app-token");
       window.location.href = "/login";
       return;
     }
