@@ -23,7 +23,7 @@
 
 - Node.js (v18 or higher)
 - Docker and Docker Compose
-- PostgreSQL (if running locally)
+- MySQL (if running locally)
 
 
 ## Development Setup

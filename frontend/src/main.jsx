@@ -15,6 +15,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        {/* Protected Routes */}
         <Route element={<RouteGuard />}>
           <Route path="/success" element={<SuccessPage />} />
         </Route>

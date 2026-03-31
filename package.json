@@ -21,7 +21,6 @@
     "@prisma/adapter-mariadb": "^7.5.0",
     "@prisma/client": "^7.6.0",
     "dotenv": "^17.3.1",
-    "mariadb": "^3.4.0",
     "prisma": "^7.5.0"
   }
 }

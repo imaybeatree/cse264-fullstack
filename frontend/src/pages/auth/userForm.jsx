@@ -19,6 +19,7 @@ export default function UserForm({api}) {
     const res = await http().post(api, body);
 
     const data = await res.json();
+    console.log(data)
     setToken(data.token)
     if (res.status == 200 || res.status == 201) {
       navigate("/success")

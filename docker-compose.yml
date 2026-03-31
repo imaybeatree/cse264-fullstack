@@ -1,17 +1,15 @@
-version: '3.8'
-
 services:
-  mysql:
+  db:
     image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: mysql
-      MYSQL_DATABASE: fullstackapp
+    container_name: fullstack-db
+    restart: unless-stopped
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fullstackapp
     volumes:
-      - mysql_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
 
 volumes:
-  mysql_data:
+  db_data:

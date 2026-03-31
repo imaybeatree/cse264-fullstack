@@ -1,6 +1,7 @@
 import { getToken } from "./token";
 const BACKEND_URL = "http://localhost:3000";
 
+// generate proper headers for protected routes and check for auth
 export const http = () => {
   const token = getToken();
 
@@ -13,7 +14,6 @@ export const http = () => {
   }
 
   async function request(path, options = {}) {
-    console.log(`${BACKEND_URL}${path}`)
     const res = await fetch(`${BACKEND_URL}${path}`, {
       ...options,
       headers: {

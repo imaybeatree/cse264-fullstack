@@ -1,5 +1,6 @@
 const { spawn, spawnSync } = require("child_process");
 
+// generate prisma client on npm run dev before starting frontend + backend
 function runCommand(name, command, args, cwd) {
   const proc = spawn(command, args, {
     cwd,
