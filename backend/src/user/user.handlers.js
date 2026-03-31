@@ -1,3 +1,4 @@
+import { prisma } from "../db/db.js";
 
 export async function getUserByName(username){
 
