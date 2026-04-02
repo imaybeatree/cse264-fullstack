@@ -1,7 +1,9 @@
+import 'dotenv/config';
 import express from "express";
 import { corsConfig } from "#auth/cors.js";
 import { loginHandler, registerHandler } from "#auth/auth.handlers.js";
 import { middleware } from "#auth/middleware.js";
+import { getRecipesHandler } from "#recipes/recipes.handlers.js";
 
 const app = express();
 const PORT = 3000;
@@ -22,7 +24,10 @@ app.post("/api/auth/register", registerHandler);
 app.post("/api/auth/login", loginHandler)
 
 // place protected endpoints below
-app.use(middleware)
+// app.use(middleware)
+
+// fetch api recipes
+app.get("/api/recipes", getRecipesHandler);
 
 app.get("/test-auth", (req, res) => {
   res.json({
