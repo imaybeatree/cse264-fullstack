@@ -12,11 +12,11 @@ const __dirname = path.dirname(__filename);
 
 console.log("ENV check:", {
   DATABASE_URL: process.env.DATABASE_URL ? "set" : "MISSING",
-  DB_HOST: process.env.DB_HOST || "MISSING",
-  DB_PORT: process.env.DB_PORT || "MISSING",
-  DB_USER: process.env.DB_USER || "MISSING",
-  DB_PASSWORD: process.env.DB_PASSWORD ? "set" : "MISSING",
-  DB_NAME: process.env.DB_NAME || "MISSING",
+  DATABASE_HOST: process.env.DATABASE_HOST || "MISSING",
+  DATABASE_PORT: process.env.DATABASE_PORT || "MISSING",
+  DATABASE_USER: process.env.DATABASE_USER || "MISSING",
+  DATABASE_PASSWORD: process.env.DATABASE_PASSWORD ? "set" : "MISSING",
+  DATABASE_NAME: process.env.DATABASE_NAME || "MISSING",
   JWT_SECRET: process.env.JWT_SECRET ? "set" : "MISSING",
   PORT: process.env.PORT || "MISSING (using 3000)",
 });
