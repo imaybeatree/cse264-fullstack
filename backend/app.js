@@ -3,7 +3,8 @@ import express from "express";
 import { corsConfig } from "#auth/cors.js";
 import { loginHandler, registerHandler } from "#auth/auth.handlers.js";
 import { middleware } from "#auth/middleware.js";
-import { getRecipesHandler } from "#recipes/recipes.handlers.js";
+// import { getRecipesHandler } from "#recipes/recipes.handlers.js";
+import recipeRoutes from "#recipes/recipes.routes.js";
 
 const app = express();
 const PORT = 3000;
@@ -27,7 +28,7 @@ app.post("/api/auth/login", loginHandler)
 // app.use(middleware)
 
 // fetch api recipes
-app.get("/api/recipes", getRecipesHandler);
+app.use("/api/recipes", recipeRoutes);
 
 app.get("/test-auth", (req, res) => {
   res.json({
