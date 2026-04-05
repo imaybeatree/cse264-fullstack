@@ -17,8 +17,7 @@ console.log("ENV check:", {
   DATABASE_USER: process.env.DATABASE_USER || "MISSING",
   DATABASE_PASSWORD: process.env.DATABASE_PASSWORD ? "set" : "MISSING",
   DATABASE_NAME: process.env.DATABASE_NAME || "MISSING",
-  JWT_SECRET: process.env.JWT_SECRET ? "set" : "MISSING",
-  PORT: process.env.PORT || "MISSING (using 3000)",
+  JWT_SECRET: process.env.JWT_SECRET ? "set" : "MISSING"
 });
 
 const app = express();
@@ -56,6 +55,6 @@ app.get("/test-auth", (req, res) => {
 });
 
 // SPA catch-all: serve index.html for any non-API route
-app.get("*", (req, res) => {
+app.get("*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
