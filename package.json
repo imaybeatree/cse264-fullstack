@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node scripts/dev.js",
-    "build": "npm run build --workspace=frontend && npx prisma generate",
+    "build": "npm run build --workspace=frontend && npx prisma generate && npx prisma migrate deploy",
     "start": "node backend/app.js",
     "migrate": "prisma migrate dev",
     "resetdb": "prisma migrate reset --force"
