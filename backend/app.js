@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve static frontend files in production
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../dist")));
 
 app.listen(PORT, (error) =>{
     if(!error)
@@ -46,5 +46,5 @@ app.get("/test-auth", (req, res) => {
 
 // SPA catch-all: serve index.html for any non-API route
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
