@@ -1,6 +1,5 @@
 import { getToken } from "./token";
-const BACKEND_URL = "http://localhost:3000";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "";
 // generate proper headers for protected routes and check for auth
 export const http = () => {
   const token = getToken();
