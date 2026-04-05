@@ -7,6 +7,7 @@ import LoginPage from './pages/auth/LoginPage'
 import SuccessPage from './pages/SuccessPage'
 import LandingPage from './pages/landing/LandingPage'
 import { RouteGuard } from './components/RouteGuard'
+import HomePage from './components/Homepage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,7 +20,8 @@ createRoot(document.getElementById('root')).render(
         <Route element={<RouteGuard />}>
           <Route path="/success" element={<SuccessPage />} />
         </Route>
-
+        <Route path="/homepage" element = {<HomePage/>}>
+        </Route>
       </Routes>
     </BrowserRouter>
 
