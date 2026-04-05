@@ -8,7 +8,7 @@
 ### Backend
 
 - Express.js
-- PostgreSQL
+- MySql
 
 ## Project Structure
 

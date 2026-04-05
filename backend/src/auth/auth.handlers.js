@@ -16,7 +16,7 @@ export const registerHandler = async (req, res) => {
 
     const user = await prisma.user.create({
       data: {
-        username,
+        username: username.toLowerCase(),
         passwordHash,
       },
     });
@@ -45,7 +45,7 @@ export const loginHandler = async (req, res) => {
     const { username, password } = req.body;
 
     const user = await prisma.user.findUnique({
-    where: { username: `${username}` },
+    where: { username: username.toLowerCase() },
     });
     const ok = await bcrypt.compare(password, user.passwordHash);
 
