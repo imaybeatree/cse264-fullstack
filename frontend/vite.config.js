@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
+  envDir: path.resolve(__dirname, ".."),
   plugins: [react()],
   build: {
     outDir: path.resolve(__dirname, "../dist"),
