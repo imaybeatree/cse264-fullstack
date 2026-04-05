@@ -1,3 +1,22 @@
+## Application Overview
+QuickBites would be a recipe discovery platform that uses the Spoonacular API to generate meal suggestions based on user preferences, allergies, and available ingredients. Users can search for recipes by ingredients, preparation time, and meal type (i.e. breakfast, lunch, or dinner). The platform would support user accounts, where dietary preferences and allergy information are stored and used to automatically filter out recipes. 
+
+
+## Team Members
+- Ryan Teo (fullstack / backend lead)
+- Selena Ramirez (API integration, data fetching logic)
+- Leo Carle (frontend development)
+
+
+## Application Functionality
+- User accounts with stored preferences and allergy filtering
+- Database (MySQL via Prisma) for user data, saved recipes, and preferences
+- Interactive UI with dynamic search, filtering, and personalized results
+- Internal REST API (Node.js/Express) for authentication and data handling
+- External API integration using Spoonacular for recipe data
+- Use of new libraries such as Motion (UI animations)
+
+
 ## Tech Stack
 
 ### Frontend
@@ -8,7 +27,7 @@
 ### Backend
 
 - Express.js
-- PostgreSQL
+- MySql
 
 ## Project Structure
 
