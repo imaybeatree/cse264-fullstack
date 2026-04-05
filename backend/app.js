@@ -10,16 +10,6 @@ import { getRecipesHandler } from "#recipes/recipes.handlers.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log("ENV check:", {
-  DATABASE_URL: process.env.DATABASE_URL ? "set" : "MISSING",
-  DATABASE_HOST: process.env.DATABASE_HOST || "MISSING",
-  DATABASE_PORT: process.env.DATABASE_PORT || "MISSING",
-  DATABASE_USER: process.env.DATABASE_USER || "MISSING",
-  DATABASE_PASSWORD: process.env.DATABASE_PASSWORD ? "set" : "MISSING",
-  DATABASE_NAME: process.env.DATABASE_NAME || "MISSING",
-  JWT_SECRET: process.env.JWT_SECRET ? "set" : "MISSING"
-});
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
