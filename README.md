@@ -27,7 +27,7 @@ QuickBites would be a recipe discovery platform that uses the Spoonacular API to
 ### Backend
 
 - Express.js
-- PostgreSQL
+- MySql
 
 ## Project Structure
 
