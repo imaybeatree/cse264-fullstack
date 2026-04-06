@@ -20,7 +20,6 @@ export const registerHandler = async (req, res) => {
         passwordHash,
       },
     });
-    console.log("created: ",user)
     const token = generateJwtToken(user.id)
 
     res.status(201).json({token: token})
