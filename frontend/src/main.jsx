@@ -4,10 +4,9 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import './css/index.css'
 import RegisterPage from './pages/auth/RegisterPage'
 import LoginPage from './pages/auth/LoginPage'
-import SuccessPage from './pages/SuccessPage'
 import LandingPage from './pages/landing/LandingPage'
 import { RouteGuard } from './components/RouteGuard'
-import HomePage from './components/Homepage'
+import HomePage from './pages/home/Homepage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -18,9 +17,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/register" element={<RegisterPage />} />
         {/* Protected Routes */}
         <Route element={<RouteGuard />}>
-          <Route path="/success" element={<SuccessPage />} />
-        </Route>
-        <Route path="/homepage" element = {<HomePage/>}>
+          <Route path="/home" element = {<HomePage/>} />
         </Route>
       </Routes>
     </BrowserRouter>
