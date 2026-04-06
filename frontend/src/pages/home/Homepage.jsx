@@ -1,19 +1,16 @@
 // HomePage.jsx
 import { useState, useEffect } from 'react';
-import RecipeCard from './RecipeCard';
-import "../css/HomePage.css";
+import RecipeCard from '../../components/RecipeCard';
+import "@/css/HomePage.css";
 import Navbar from './Navbar';
+import { http } from '../../lib/http';
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
     // fetch recipes
-        fetch("http://localhost:3000/api/recipes", {
-            headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-        })
+        http().get("/api/recipes")
             .then(res => res.json())
             .then(data => setRecipes(data || []));
     }, []);

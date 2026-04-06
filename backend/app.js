@@ -5,7 +5,8 @@ import { fileURLToPath } from "url";
 import { corsConfig } from "#auth/cors.js";
 import { loginHandler, registerHandler } from "#auth/auth.handlers.js";
 import { middleware } from "#auth/middleware.js";
-import { getRecipesHandler } from "#recipes/recipes.handlers.js";
+// import { getRecipesHandler } from "#recipes/recipes.handlers.js";
+import recipeRoutes from "#recipes/recipes.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,10 +33,10 @@ app.post("/api/auth/register", registerHandler);
 app.post("/api/auth/login", loginHandler)
 
 // place protected endpoints below
-// app.use(middleware)
+app.use(middleware)
 
 // fetch api recipes
-app.get("/api/recipes", getRecipesHandler);
+app.use("/api/recipes", recipeRoutes);
 
 app.get("/test-auth", (req, res) => {
   res.json({
