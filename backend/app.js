@@ -33,7 +33,7 @@ app.post("/api/auth/register", registerHandler);
 app.post("/api/auth/login", loginHandler)
 
 // place protected endpoints below
-// app.use(middleware)
+app.use(middleware)
 
 // fetch api recipes
 app.use("/api/recipes", recipeRoutes);

@@ -21,7 +21,7 @@ export default function UserForm({api}) {
     const data = await res.json();
     setToken(data.token)
     if (res.status == 200 || res.status == 201) {
-      navigate("/success")
+      navigate("/home")
     }
   }
 
