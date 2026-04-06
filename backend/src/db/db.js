@@ -8,13 +8,14 @@ dotenv.config({
 });
 
 // prisma uses the mariadb adapter for mysql
+const dbUrl = new URL(process.env.DATABASE_URL);
 const adapter = new PrismaMariaDb(
   {
-  host: process.env.DATABASE_HOST,
-  port: Number(process.env.DATABASE_PORT ?? 3306),
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
+  host: dbUrl.hostname,
+  port: Number(dbUrl.port || 3306),
+  user: dbUrl.username,
+  password: dbUrl.password,
+  database: dbUrl.pathname.slice(1),
   connectionLimit: 10,
   allowPublicKeyRetrieval: true,
   }
