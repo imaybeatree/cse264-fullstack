@@ -25,8 +25,8 @@ export function LandingHeader() {
     <header ref={headerRef} className={`header ${isPill ? "is-pill" : ""}`}>
       <div className="header-container">
         <div className="header-left">
-          <img src="/food_bowl.png" alt="logo" className="header-logo" />
-          <span className="header-title">Food App</span>
+          <img src="/logo.jpg" alt="logo" className="header-logo" />
+          <span className="header-title">QuickBites</span>
         </div>
 
         <nav className="header-nav">
