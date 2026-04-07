@@ -32,6 +32,13 @@ app.use(express.json()); // for parsing application/json
 app.post("/api/auth/register", registerHandler);
 app.post("/api/auth/login", loginHandler)
 
+// SPA catch-all: serve index.html for any non-API route (before auth middleware)
+app.get("*splat", (req, res, next) => {
+  // Let API routes fall through to the auth middleware
+  if (req.path.startsWith("/api/")) return next();
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
+
 // place protected endpoints below
 app.use(middleware)
 
@@ -43,9 +50,4 @@ app.get("/test-auth", (req, res) => {
     message: "You are authenticated",
     user: res.locals.user,
   });
-});
-
-// SPA catch-all: serve index.html for any non-API route
-app.get("*splat", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
