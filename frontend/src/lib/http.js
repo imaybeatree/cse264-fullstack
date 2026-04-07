@@ -21,13 +21,6 @@ export const http = () => {
       },
     });
 
-    // auto logout on 401
-    if (res.status === 401) {
-      localStorage.removeItem("app-token");
-      window.location.href = "/login";
-      return;
-    }
-
     if (!res.ok) {
       throw new Error(res.error || "Request failed");
     }

@@ -21,7 +21,9 @@ export default function UserForm({api}) {
     const data = await res.json();
     setToken(data.token)
     if (res.status == 200 || res.status == 201) {
-      navigate("/home")
+      const params = new URLSearchParams(window.location.search);
+      const after = params.get("after") || "/home";
+      navigate(`/redirect?after=${encodeURIComponent(after)}`)
     }
   }
 
