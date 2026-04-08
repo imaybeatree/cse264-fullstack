@@ -21,7 +21,8 @@ export const http = () => {
       },
     });
 
-    if (!res.ok) {
+    // let 429 through so callers can read cooldown info
+    if (!res.ok && res.status !== 429) {
       throw new Error(res.error || "Request failed");
     }
 

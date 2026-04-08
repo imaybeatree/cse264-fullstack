@@ -35,6 +35,11 @@ export default function RegisterPage() {
       const data = await res.json();
       setToken(data.token);
       if (res.status == 200 || res.status == 201) {
+        // send verification email in production (don't block redirect on failure)
+        if (import.meta.env.PROD) {
+          http().post("/api/mail/send").catch(() => {});
+        }
+
         const params = new URLSearchParams(window.location.search);
         const after = params.get("after") || "/home";
         navigate(`/redirect?after=${encodeURIComponent(after)}`);

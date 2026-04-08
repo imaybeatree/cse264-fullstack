@@ -1,27 +1,47 @@
 import { verifyJwtToken } from "./auth.token.handlers.js";
-// check jwt token and assign userId to res.locals
-export const middleware = (req, res, next) => {
+
+// base auth: check jwt token and assign userId to res.locals
+const parseToken = (req, res) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ error: "Missing Authorization header" });
+    res.status(401).json({ error: "Missing Authorization header" });
+    return null;
   }
 
   const split = authHeader.split(" ");
 
-  // Expected: "Bearer <token>"
   if (split.length !== 2 || split[0] !== "Bearer") {
-    return res.status(401).json({ error: "Invalid Authorization format" });
+    res.status(401).json({ error: "Invalid Authorization format" });
+    return null;
   }
 
-  const token = split[1];
   try {
-    const data = verifyJwtToken(token);
-    res.locals.user = { userId: data.userId };
-
-    next();
+    const data = verifyJwtToken(split[1]);
+    res.locals.user = { userId: data.userId, verified: data.verified };
+    return data;
   } catch (err) {
     console.log("Auth failed");
-    return res.status(401).json({ error: "Invalid token" });
+    res.status(401).json({ error: "Invalid token" });
+    return null;
   }
+};
+
+// requires valid token + verified email
+export const middleware = (req, res, next) => {
+  const data = parseToken(req, res);
+  if (!data) return;
+
+  if (!data.verified) {
+    return res.status(403).json({ error: "Email not verified" });
+  }
+
+  next();
+};
+
+// requires valid token only (unverified users allowed)
+export const authOnly = (req, res, next) => {
+  const data = parseToken(req, res);
+  if (!data) return;
+  next();
 };

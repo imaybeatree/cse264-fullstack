@@ -3,11 +3,7 @@ import "dotenv/config";
 
 const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret"
 
-export const generateJwtToken = (userId) => {
-    const payload = {
-        userId: userId
-    }
-
+export const generateJwtToken = (payload) => {
     const token = jwt.sign(payload, JWT_SECRET, {expiresIn: "1h", issuer: "app"});
     return token
 }
