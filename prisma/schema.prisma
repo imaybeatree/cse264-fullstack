@@ -14,9 +14,11 @@ datasource db {
 
 model User {
   id           Int   @id @default(autoincrement())
-  username        String   @unique
-  passwordHash String
-  createdAt    DateTime @default(now())
+  username        String?
+  email        String   @unique
+  passwordHash      String
+  verified          Boolean  @default(false)
+  createdAt         DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
 }
