@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Calendar, Users, MessageSquare } from "lucide-react";
 import {LandingHeader} from "./LandingHeader"
+import {LandingBanner} from "./LandingBanner"
 import "@/css/landing.css"
 
 
@@ -27,32 +28,7 @@ export default function LandingPage() {
     <div className="landing">
       <LandingHeader/>
       <section className="landing">
-    <div className="landing-banner">
-      <div className="landing-title">
-        <h1 className="landing-title-strong">Food app</h1>
-
-        <p className="landing-subtitle">
-          Cook simple and easy meals from the comfort of your home
-        </p>
-
-        <div className="landing-actions">
-          <motion.a
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href="/register"
-            className="btn btn-primary"
-          >
-            Use Foodapp for free
-          </motion.a>
-
-          <a href="#features" className="text-link">
-            Learn more <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-      <img src="/food_bowl.png" alt="food" className="landing-image" />
-    </div>
+    <LandingBanner />
 
         <div className="landing-content">
           <motion.div
