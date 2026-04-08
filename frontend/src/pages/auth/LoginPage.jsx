@@ -1,8 +1,44 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import UserForm from "./userForm";
+import { useNavigate } from "react-router";
+import { http } from "../../lib/http";
+import { setToken } from "../../lib/token";
 import "@/css/auth.css"
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    }
+
+    try {
+      const res = await http().post("/api/auth/login", {
+        email,
+        password,
+      });
+
+      const data = await res.json();
+      setToken(data.token);
+      if (res.status == 200 || res.status == 201) {
+        const params = new URLSearchParams(window.location.search);
+        const after = params.get("after") || "/home";
+        navigate(`/redirect?after=${encodeURIComponent(after)}`);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Invalid email or password");
+    }
+  }
+
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -12,7 +48,27 @@ export default function LoginPage() {
         <h1>Login</h1>
         <p className="auth-subtitle">Login to your account.</p>
 
-        <UserForm api="/api/auth/login" />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          {error && <div className="auth-error">{error}</div>}
+
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </form>
 
         <p className="auth-footer">
           Don't have an account? <Link to="/register">Register</Link>

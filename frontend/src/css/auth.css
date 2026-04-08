@@ -82,8 +82,18 @@
   transition: background-color 150ms ease;
 }
 
-.auth-card button:hover {
+.auth-card button:hover:not(:disabled) {
   background: var(--primary-hover);
+}
+
+.auth-card button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-success {
+  text-align: center;
+  font-size: 0.9rem
 }
 
 .auth-back {
@@ -98,6 +108,11 @@
 
 .auth-back:hover {
   opacity: 0.7;
+}
+
+.auth-error {
+  font-size: 0.9rem;
+  color: red;
 }
 
 /* Footer */

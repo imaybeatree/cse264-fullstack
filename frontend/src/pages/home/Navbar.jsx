@@ -1,9 +1,12 @@
 import "@/css/Navbar.css";
+import { removeToken } from "../../lib/token";
+import { useNavigate } from "react-router";
 
 export default function Navbar() {
-// empty func for now
+  const navigate = useNavigate();
   function handleLogout() {
-    console.log("logout");
+    removeToken();
+    navigate("/");
   }
 
   return (
