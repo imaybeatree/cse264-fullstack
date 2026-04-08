@@ -50,6 +50,49 @@ export async function getRecipesByNutrientsHandler(req, res) {
     }
 }
 
+// epic 3: advanced filtering (diet, intolerances, nutrition, ingredients)
+export async function getFilteredRecipesHandler(req, res) {
+  const apiKey = process.env.SPOONACULAR_API_KEY;
+  const {
+    diet,
+    intolerances,
+    includeCuisine,
+    excludeCuisine,
+    includeIngredients,
+    excludeIngredients,
+    minCarbs, maxCarbs,
+    minProtein, maxProtein,
+    minCalories, maxCalories,
+    minFat, maxFat,
+  } = req.query;
+
+  // build params dynamically - only include what was provided
+  const params = new URLSearchParams({ apiKey, number: 10, addRecipeNutrition: true });
+
+  if (diet) params.append("diet", diet);
+  if (intolerances) params.append("intolerances", intolerances);
+  if (includeCuisine) params.append("includeCuisine", includeCuisine);
+  if (excludeCuisine) params.append("excludeCuisine", excludeCuisine);
+  if (includeIngredients) params.append("includeIngredients", includeIngredients);
+  if (excludeIngredients) params.append("excludeIngredients", excludeIngredients);
+  if (minCarbs) params.append("minCarbs", minCarbs);
+  if (maxCarbs) params.append("maxCarbs", maxCarbs);
+  if (minProtein) params.append("minProtein", minProtein);
+  if (maxProtein) params.append("maxProtein", maxProtein);
+  if (minCalories) params.append("minCalories", minCalories);
+  if (maxCalories) params.append("maxCalories", maxCalories);
+  if (minFat) params.append("minFat", minFat);
+  if (maxFat) params.append("maxFat", maxFat);
+
+  try {
+    const response = await fetch(`${BASE_URL}/complexSearch?${params}`);
+    const data = await response.json();
+    res.json(data.results);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch filtered recipes" });
+  }
+}
+
 // epic 7: get single recipe details
 export async function getRecipeByIdHandler(req, res) {
     const apiKey = process.env.SPOONACULAR_API_KEY;
