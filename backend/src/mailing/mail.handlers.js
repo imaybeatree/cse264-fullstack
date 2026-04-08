@@ -35,7 +35,7 @@ export const sendVerificationEmailHandler = async (req, res) => {
     const verifyUrl = `${baseUrl}/verify?token=${verifyToken}`;
 
     await transporter.sendMail({
-      from: process.env.SMTP_USER,
+      from: `QuickBites <${process.env.SMTP_USER}>`,
       to,
       subject: "Verify your email",
       html: verificationEmailTemplate(verifyUrl),
