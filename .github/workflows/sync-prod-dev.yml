@@ -1,0 +1,41 @@
+name: Sync prod back to dev
+
+on:
+  pull_request:
+    branches:
+      - prod
+    types:
+      - closed
+
+permissions:
+  contents: write
+
+jobs:
+  sync-back:
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'prod'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch branches
+        run: |
+          git fetch origin prod dev
+
+      - name: Merge prod into dev
+        run: |
+          git checkout dev
+          git merge --no-ff origin/prod -m "Sync prod back into dev after PR #${{ github.event.pull_request.number }}"
+
+      - name: Push updated dev
+        run: |
+          git push origin dev
