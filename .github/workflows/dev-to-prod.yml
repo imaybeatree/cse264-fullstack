@@ -1,30 +1,35 @@
-name: dev -> prod
+name: Release dev to prod PR
 
 on:
   push:
     branches:
       - dev
 
+concurrency:
+  group: dev-to-prod-pr
+  cancel-in-progress: false
+
 permissions:
   contents: read
   pull-requests: write
 
 jobs:
-  ensure-pr:
+  ensure-dev-to-prod-pr:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check for existing PR
+      - name: Check for existing open PR from dev to prod
         id: check_pr
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER=$(gh pr list \
+            --repo ${{ github.repository }} \
             --base prod \
             --head dev \
             --state open \
             --json number \
-            --jq '.[0].number')
+            --jq '.[0].number'
 
           if [ -z "$PR_NUMBER" ]; then
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -39,16 +44,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create \
+            --repo ${{ github.repository }} \
             --base prod \
             --head dev \
-            --title "Push dev to prod" \
-            --body "This PR was automatically created from the latest changes merged into dev."
-
-      - name: Update existing PR title/body
-        if: steps.check_pr.outputs.exists == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh pr edit "${{ steps.check_pr.outputs.number }}" \
-            --title "Push dev to prod" \
-            --body "This PR tracks the latest changes in dev and is automatically kept up to date."
+            --title "Promote dev to prod" \
+            --body "This PR was automatically created after changes were merged into dev. Keep this PR open until the release is approved for prod."
