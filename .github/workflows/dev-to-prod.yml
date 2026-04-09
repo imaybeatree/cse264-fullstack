@@ -16,7 +16,6 @@ permissions:
 jobs:
   ensure-dev-to-prod-pr:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check for existing open PR from dev to prod
         id: check_pr
