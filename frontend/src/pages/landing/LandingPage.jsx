@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Calendar, Users, MessageSquare } from "lucide-react";
+import { Calendar, Users, MessageSquare, Search, Clock3, ShieldAlert } from "lucide-react";
 import {LandingHeader} from "./LandingHeader"
 import {LandingBanner} from "./LandingBanner"
 import "@/css/landing.css"
@@ -10,8 +10,8 @@ export default function LandingPage() {
     {
       title: "Smart Recipe Search",
       description:
-        "Search recipes by meal type, ingredients you already have, and cooking time.",
-      icon: Search,
+        "Search recipes by meal type, ingredients you already have, and cooking time.", 
+        icon: Search,
     },
     {
       title: "Dietary & Allergy Filters",
