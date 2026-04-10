@@ -75,11 +75,7 @@
   border-radius: 9999px;
   border: 1px solid lightgray;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(
-    to bottom,
-    rgba(158, 162, 177, 0.3),
-    rgba(199, 197, 197, 0.6)
-  );
+  background: white;
   backdrop-filter: blur(12px);
 }
 

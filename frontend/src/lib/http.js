@@ -21,14 +21,8 @@ export const http = () => {
       },
     });
 
-    // auto logout on 401
-    if (res.status === 401) {
-      localStorage.removeItem("app-token");
-      window.location.href = "/login";
-      return;
-    }
-
-    if (!res.ok) {
+    // let 429 through so callers can read cooldown info
+    if (!res.ok && res.status !== 429) {
       throw new Error(res.error || "Request failed");
     }
 

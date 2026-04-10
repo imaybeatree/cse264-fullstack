@@ -1,26 +1,3 @@
-.landing-page {
-  min-height: 100vh;
-  background-color: var(--background);
-}
-
-.landing-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 0 1.5rem 5rem;
-  background: linear-gradient(to bottom, #eff6ff, #ffffff);
-}
-
-.landing-banner {
-  width: 100%;
-  background-color: antiquewhite;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  padding: 30px
-}
-
 .landing-content {
   width: 100%;
   max-width: 900px;
@@ -33,56 +10,6 @@
   padding-top: 4rem;
 }
 
-.landing-title {
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-}
-
-.landing-title h1,
-.landing-title p {
-  margin: 0;
-}
-
-.landing-title-strong {
-  font-weight: 600;
-}
-
-.landing-subtitle {
-  margin: 0;
-  font-size: 1.125rem;
-  color: var(--muted-foreground);
-}
-
-.landing-image {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.landing-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.text-link {
-  color: var(--foreground);
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: color 150ms ease;
-}
-
-.text-link:hover {
-  color: var(--primary);
-}
-
 .features-section {
   padding: 6rem 1.5rem;
 }
@@ -91,17 +18,6 @@
   max-width: 700px;
   margin: 0 auto 4rem;
   text-align: center;
-}
-
-.landing-title {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.75rem;
-
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: 300;
 }
 
 .section-subtitle {
@@ -156,45 +72,9 @@
   color: var(--muted-foreground);
 }
 
-.cta-section {
-  position: relative;
-  padding: 6rem 1.5rem;
-  overflow: hidden;
-}
-
-.cta-background {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, #ffffff, #eff6ff);
-}
-
-.cta-content {
-  position: relative;
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 @media (min-width: 640px) {
-  .landing-title {
-    font-size: 4rem;
-  }
-
-  .landing-actions {
-    flex-direction: row;
-  }
-
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 639px) {
-  .landing-banner {
-    flex-direction: column;
   }
 }
 
