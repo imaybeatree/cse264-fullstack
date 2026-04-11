@@ -4,6 +4,7 @@ import RecipeCard from '../../components/RecipeCard';
 import "@/css/HomePage.css";
 import Navbar from './Navbar';
 import { http } from '../../lib/http';
+import SearchBar from './SearchBar';
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState([]);
@@ -20,10 +21,11 @@ export default function HomePage() {
     {/* Navbar link */}
      <Navbar />
     {/* Search Bar */}
-    <div className="search-bar">
+    {/* <div className="search-bar">
     <input className="search-input" type="text" placeholder="Search recipes..." />
     <button className="search-button">Search</button>
-    </div>
+    </div> */}
+    <SearchBar onSearch={(data) => console.log("searching:", data)} />
      {/* Welcome Section */}
     <div className="welcome-section">
       <h1 className="welcome-title">Welcome back! 👋</h1>
