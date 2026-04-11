@@ -29,6 +29,7 @@ export default function SearchBar({ onSearch }) {
 
 
  function handleSearch() {
+    console.log("search clicked", query, selected);
    onSearch({ query, filters: selected });
    setFocused(false);
  }
