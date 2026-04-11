@@ -26,7 +26,8 @@ export default function HomePage() {
 
       http().get(`/api/recipes?${params}`)
         .then(res => res.json())
-        .then(data => setRecipes(data || []));
+        .then(data => setRecipes(data || []))
+        .catch(err => console.log("fetch error:", err));  // add this
   }
 
   return (
