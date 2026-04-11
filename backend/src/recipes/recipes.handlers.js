@@ -3,12 +3,25 @@ const BASE_URL = "https://api.spoonacular.com/recipes";
 // epic 1: general search/suggested recipes
 export async function getRecipesHandler(req, res) {
     const apiKey = process.env.SPOONACULAR_API_KEY;
+    const { query, diet, type } = req.query;
     //console.log("handler called");
     //console.log("api key:", process.env.SPOONACULAR_API_KEY);
 
+     const params = new URLSearchParams({
+        apiKey,
+        number: 10,
+        addRecipeNutrition: true,
+        addRecipeInformation: true
+    });
+
+
+    if (query) params.append("query", query);
+    if (diet) params.append("diet", diet);
+    if (type) params.append("type", type);
+
     try {
         const response = await fetch(
-        `${BASE_URL}/complexSearch?apiKey=${apiKey}&addRecipeNutrition=true&addRecipeInformation=true&number=10`
+        `${BASE_URL}/complexSearch?${params}`
         );
         const data = await response.json();
         // console.log("spoonacular response:", data);

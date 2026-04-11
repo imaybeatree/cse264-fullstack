@@ -16,6 +16,21 @@ export default function HomePage() {
             .then(data => setRecipes(data || []));
     }, []);
 
+    // fetches data for search
+    function fetchRecipes({ query, filters }) {
+      const params = new URLSearchParams();
+
+      if (query) params.append("query", query);
+      if (filters?.diet?.length) params.append("diet", filters.diet.join(","));
+      if (filters?.mealType?.length) params.append("type", filters.mealType.join(","));
+
+      fetch(`http://localhost:3000/api/recipes?${params}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      })
+        .then(res => res.json())
+        .then(data => setRecipes(data || []));
+  }
+
   return (
   <div className="home-container">
     {/* Navbar link */}
@@ -25,7 +40,7 @@ export default function HomePage() {
     <input className="search-input" type="text" placeholder="Search recipes..." />
     <button className="search-button">Search</button>
     </div> */}
-    <SearchBar onSearch={(data) => console.log("searching:", data)} />
+    <SearchBar onSearch={fetchRecipes} />
      {/* Welcome Section */}
     <div className="welcome-section">
       <h1 className="welcome-title">Welcome back! 👋</h1>
