@@ -9,6 +9,8 @@ import SearchBar from './SearchBar';
 export default function HomePage() {
     const [recipes, setRecipes] = useState([]);
 
+    fetch("/api/recipes").then(r => r.json()).then(console.log)
+    
     useEffect(() => {
     // fetch recipes
         http().get("/api/recipes")
