@@ -44,8 +44,12 @@ export default function SearchBar({ onSearch }) {
          value={query}
          onChange={e => setQuery(e.target.value)}
          onFocus={() => setFocused(true)}
+         onBlur={() => setTimeout(() => setFocused(false), 200)}
        />
-       <button className="search-button" onClick={handleSearch}>Search</button>
+       <button className="search-button" onMouseDown={(e) => {
+            e.preventDefault();  // stops input from losing focus
+            handleSearch();
+        }}>Search</button>
      </div>
 
 
