@@ -4,7 +4,7 @@ import RecipeCard from '../../components/RecipeCard';
 import "@/css/HomePage.css";
 import Navbar from './Navbar';
 import { http } from '../../lib/http';
-import SearchBar from './SearchBar';
+import SearchBar from '../../components/SearchBar';
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState([]);
@@ -24,9 +24,7 @@ export default function HomePage() {
       if (filters?.diet?.length) params.append("diet", filters.diet.join(","));
       if (filters?.mealType?.length) params.append("type", filters.mealType.join(","));
 
-      fetch(`/api/recipes?${params}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      })
+      http().get(`/api/recipes?${params}`)
         .then(res => res.json())
         .then(data => setRecipes(data || []));
   }
