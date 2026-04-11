@@ -9,8 +9,6 @@ import SearchBar from './SearchBar';
 export default function HomePage() {
     const [recipes, setRecipes] = useState([]);
 
-    fetch("/api/recipes").then(r => r.json()).then(console.log)
-    
     useEffect(() => {
     // fetch recipes
         http().get("/api/recipes")
@@ -26,7 +24,7 @@ export default function HomePage() {
       if (filters?.diet?.length) params.append("diet", filters.diet.join(","));
       if (filters?.mealType?.length) params.append("type", filters.mealType.join(","));
 
-      fetch(`http://localhost:3000/api/recipes?${params}`, {
+      fetch(`/api/recipes?${params}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
         .then(res => res.json())
