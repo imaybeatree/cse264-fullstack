@@ -20,5 +20,12 @@ model User {
   verified          Boolean  @default(false)
   createdAt         DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  
+
+  //onboarding
+  preferences   Json?
+  allergies     Json?
+  ingredients   Json?
+  onboarded     Boolean  @default(false)
 
 }

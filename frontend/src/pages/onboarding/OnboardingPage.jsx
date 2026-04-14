@@ -219,9 +219,8 @@ export default function OnboardingPage() {
     navigate("/home");
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
+  async function handleSubmit(e) {
+    if (e) e.preventDefault();
     if (step !== 3) return;
 
     const formData = {
@@ -230,12 +229,31 @@ export default function OnboardingPage() {
       ingredients,
     };
 
-    console.log("Onboarding preferences:", formData);
-    setSaved(true);
+    const token = localStorage.getItem("app-token");
 
-    setTimeout(() => {
-      navigate("/home");
-    }, 800);
+    try {
+      const response = await fetch("http://localhost:3000/api/user/onboarding", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("app-token")}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to save onboarding data: ${response.status}`);
+      }
+
+      setSaved(true);
+
+      setTimeout(() => {
+        navigate("/home");
+      }, 800);
+    } catch (error) {
+      console.error("onboarding save error:", error);
+      alert("Could not save onboarding preferences.");
+    }
   }
 
   return (
@@ -444,7 +462,7 @@ export default function OnboardingPage() {
 
           {saved && (
             <p className="success-message">
-              Preferences saved locally for demo/testing.
+              Your settings have been saved!
             </p>
           )}
 
