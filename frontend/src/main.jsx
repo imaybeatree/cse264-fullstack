@@ -9,6 +9,7 @@ import { RouteGuard } from './components/RouteGuard'
 import HomePage from './pages/home/Homepage'
 import RedirectPage from './pages/redirect/RedirectPage'
 import VerifyPage from './pages/auth/VerifyPage'
+import RecipeDetailPage from './pages/recipe/RecipeDetailPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
         <Route element={<RouteGuard />}>
           <Route path="/redirect" element={<RedirectPage />} />
           <Route path="/home" element = {<HomePage/>} />
+          <Route path="/recipe/:id" element={<RecipeDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -87,6 +87,7 @@ export default function HomePage() {
     <div className="recipe-grid">
       {recipes.map((recipe) => (
         <RecipeCard key={recipe.id}
+            id={recipe.id} 
             name={recipe.title}
             image={recipe.image}
             time={recipe.readyInMinutes}

@@ -29,7 +29,7 @@ export async function getRecipesHandler(req, res) {
         `${BASE_URL}/complexSearch?${params}`
         );
         const data = await response.json();
-        console.log("spoonacular data:", JSON.stringify(data).slice(0, 200));
+        //console.log("spoonacular data:", JSON.stringify(data).slice(0, 200));
         res.json(data.results ?? []); // if undefined send an empty array
     } catch (error) {
         res.status(500).json({ message: "Failed to fetch recipes" });
@@ -120,9 +120,24 @@ export async function getRecipeByIdHandler(req, res) {
         `${BASE_URL}/${id}/information?apiKey=${apiKey}&addRecipeNutrition=true`
         );
         const data = await response.json();
-        console.log("spoonacular response:", data);
-        res.json(data.results);
+        // console.log("spoonacular response:", data);
+        res.json(data);
     } catch (error) {
         res.status(500).json({ message: "Failed to fetch recipe details" });
     }
+}
+
+// see similar recipes
+export async function getSimilarRecipesHandler(req, res) {
+  const apiKey = process.env.SPOONACULAR_API_KEY;
+  const { id } = req.params;
+  try {
+    const response = await fetch(
+      `${BASE_URL}/${id}/similar?apiKey=${apiKey}&number=6`
+    );
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch similar recipes" });
+  }
 }
