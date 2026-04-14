@@ -1,0 +1,98 @@
+.detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: #22c55e;
+  margin-bottom: 24px;
+  padding: 0;
+}
+
+.detail-hero {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.detail-image {
+  width: 400px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+.detail-hero-info {
+  flex: 1;
+}
+
+.detail-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.detail-diets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.diet-tag {
+  padding: 4px 12px;
+  background-color: #dcfce7;
+  color: #16a34a;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.detail-section {
+  margin-bottom: 40px;
+}
+
+.detail-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.ingredients-list {
+  list-style: disc;
+  padding-left: 20px;
+  line-height: 2;
+  color: #333;
+}
+
+.steps-list {
+  padding-left: 20px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.steps-list li {
+  margin-bottom: 12px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
