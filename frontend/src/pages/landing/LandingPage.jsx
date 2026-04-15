@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Calendar, Users, MessageSquare, Search, Clock3, ShieldAlert } from "lucide-react";
+import { Search, ShieldAlert, Clock3} from "lucide-react";
 import {LandingHeader} from "./LandingHeader"
 import {LandingBanner} from "./LandingBanner"
 import "@/css/landing.css"
@@ -26,21 +26,12 @@ export default function LandingPage() {
       icon: Clock3,
     },
   ];
-
   return (
     <div className="landing">
       <LandingHeader />
 
       <section className="landing">
-    <LandingBanner />
-
-        <div className="landing-content">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          />
-        </div>
+      <LandingBanner />
       </section>
 
       <section id="features" className="features-section">
