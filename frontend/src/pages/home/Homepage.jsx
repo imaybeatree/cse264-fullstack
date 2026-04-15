@@ -4,44 +4,105 @@ import RecipeCard from '../../components/RecipeCard';
 import "@/css/HomePage.css";
 import Navbar from './Navbar';
 import { http } from '../../lib/http';
+import SearchBar from '../../components/SearchBar';
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState([]);
+    // boolean to check if searched
+    const [hasSearched, setHasSearched] = useState(false);
+    // to offset recipes
+    const [offset, setOffset] = useState(0);
+    const [currentSearch, setCurrentSearch] = useState({ query: "", filters: {} })
 
     useEffect(() => {
-    // fetch recipes
-        http().get("/api/recipes")
-            .then(res => res.json())
-            .then(data => setRecipes(data || []));
+      loadRecipes({ query: "", filters: {} }, 0);
     }, []);
+
+    // fetches data for search
+    function loadRecipes( searchData, pageOffset) {
+      if (searchData.query) setHasSearched(true);
+      else setHasSearched(false);
+      const params = new URLSearchParams();
+
+      if (searchData.query) params.append("query", searchData.query);
+      if (searchData.filters?.diet?.length) params.append("diet", searchData.filters.diet.join(","));
+      if (searchData.filters?.mealType?.length) params.append("type", searchData.filters.mealType.join(","));
+      if (searchData.filters?.difficulty?.includes("Under 15 min")) params.append("maxReadyTime", "15");
+      else if (searchData.filters?.difficulty?.includes("Under 30 min")) params.append("maxReadyTime", "30");
+      else if (searchData.filters?.difficulty?.includes("Under 1 hour")) params.append("maxReadyTime", "60");
+      if (searchData.filters?.difficulty?.includes("5 ingredients or less")) params.append("maxIngredients", "5");
+
+      // creating offset to only show 20 recipes
+       params.append("offset", pageOffset);
+
+      http().get(`/api/recipes?${params}`)
+        .then(res => res.json())
+        .then(data => setRecipes(data || []))
+        .catch(err => {
+          console.log("error:", err);
+          setRecipes([]);  // set empty so page doesn't crash
+        });
+  }
+
+ 
+  // handles search data
+  function handleSearch(searchData) {
+    setOffset(0);  // reset on new search
+    loadRecipes(searchData, 0);
+  }
+
+  // takes to previous page
+  function handlePrev() {
+    const newOffset = Math.max(0, offset - 18);
+    setOffset(newOffset);
+    loadRecipes(currentSearch, newOffset);
+  }
+
+  // takes to next page
+  function handleNext() {
+    const newOffset = offset + 18;
+    setOffset(newOffset);
+    loadRecipes(currentSearch, newOffset);
+  }
 
   return (
   <div className="home-container">
     {/* Navbar link */}
      <Navbar />
     {/* Search Bar */}
-    <div className="search-bar">
+    {/* <div className="search-bar">
     <input className="search-input" type="text" placeholder="Search recipes..." />
     <button className="search-button">Search</button>
-    </div>
+    </div> */}
+    <SearchBar onSearch={handleSearch} />
      {/* Welcome Section */}
-    <div className="welcome-section">
-      <h1 className="welcome-title">Welcome back! 👋</h1>
-      <p className="welcome-subtitle">What are you cooking today?</p>
-    </div>
+    {!hasSearched && (
+      <div className="welcome-section">
+        <h1 className="welcome-title">Welcome back! 👋</h1>
+        <p className="welcome-subtitle">What are you cooking today?</p>
+      </div>
+    )}
     {/* Suggested recipes  */}
     <h2 className="home-title">Suggested Recipes</h2>
     <div className="recipe-grid">
       {recipes.map((recipe) => (
         <RecipeCard key={recipe.id}
+            id={recipe.id} 
             name={recipe.title}
             image={recipe.image}
             time={recipe.readyInMinutes}
             cost={recipe.pricePerServing / 100}
-            calories={recipe.calories}
+            calories={recipe.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount}
             onSave={() => console.log("save", recipe.id)} />
       ))}
     </div>
+    {recipes.length > 0 && (
+        <div className="pagination">
+          <button onClick={handlePrev} disabled={offset === 0}>←</button>
+          <span>Page {Math.floor(offset / 20) + 1}</span>
+          <button onClick={handleNext} disabled={recipes.length < 18}>→</button>
+        </div>
+    )}
   </div>
 );
 }

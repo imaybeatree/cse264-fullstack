@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Calendar, Users, MessageSquare } from "lucide-react";
+import { Calendar, Users, MessageSquare, Search, Clock3, ShieldAlert } from "lucide-react";
 import {LandingHeader} from "./LandingHeader"
 import {LandingBanner} from "./LandingBanner"
 import "@/css/landing.css"
@@ -7,26 +7,30 @@ import "@/css/landing.css"
 
 export default function LandingPage() {
   const features = [
-  {
-    title: "Placeholder1",
-    description:
-      "Desc",
-    icon: Calendar,
-  },
-  {
-    title: "Placeholder2",
-    description: "Desc",
-    icon: Users,
-  },
-  {
-    title: "Placeholder3",
-    description: "Desc",
-    icon: MessageSquare,
-  },
-];
+    {
+      title: "Smart Recipe Search",
+      description:
+        "Search recipes by meal type, ingredients you already have, and cooking time.", 
+        icon: Search,
+    },
+    {
+      title: "Dietary & Allergy Filters",
+      description:
+        "Personalize results by excluding allergens and matching dietary preferences.",
+      icon: ShieldAlert,
+    },
+    {
+      title: "Quick Meal Options",
+      description:
+        "Find simple, budget-friendly meals that fit a busy college schedule.",
+      icon: Clock3,
+    },
+  ];
+
   return (
     <div className="landing">
-      <LandingHeader/>
+      <LandingHeader />
+
       <section className="landing">
     <LandingBanner />
 
@@ -35,16 +39,16 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-          </motion.div>
+          />
         </div>
       </section>
 
       <section id="features" className="features-section">
         <div className="section-header">
-          <h2 className="section-title">Cook simple homemade food</h2>
+          <h2 className="section-title">Built for easier everyday cooking</h2>
           <p className="section-subtitle">
-            Powerful features designed to make your meal options cheaper and healthier.
+            QuickBites helps users find meals that are practical, personalized,
+            and easy to make.
           </p>
         </div>
 
@@ -70,4 +74,4 @@ export default function LandingPage() {
       </section>
     </div>
   );
-};
+}
