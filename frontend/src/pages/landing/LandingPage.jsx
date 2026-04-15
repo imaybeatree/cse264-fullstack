@@ -25,19 +25,21 @@ export default function LandingPage() {
         "Find simple, budget-friendly meals that fit a busy college schedule.",
       icon: Clock3,
     },
-];
+  ];
   return (
     <div className="landing">
-      <LandingHeader/>
+      <LandingHeader />
+
       <section className="landing">
       <LandingBanner />
       </section>
 
       <section id="features" className="features-section">
         <div className="section-header">
-          <h2 className="section-title">Cook simple homemade food</h2>
+          <h2 className="section-title">Built for easier everyday cooking</h2>
           <p className="section-subtitle">
-            Powerful features designed to make your meal options cheaper and healthier.
+            QuickBites helps users find meals that are practical, personalized,
+            and easy to make.
           </p>
         </div>
 
@@ -63,4 +65,4 @@ export default function LandingPage() {
       </section>
     </div>
   );
-};
+}
