@@ -10,6 +10,7 @@ import HomePage from './pages/home/Homepage'
 import RedirectPage from './pages/redirect/RedirectPage'
 import VerifyPage from './pages/auth/VerifyPage'
 import OnboardingPage from './pages/onboarding/OnboardingPage'
+import RecipeDetailPage from './pages/recipe/RecipeDetailPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/home" element = {<HomePage/>} />
           <Route path="/onboarding" element={<OnboardingPage />} />
           {/* new routes */}
+          <Route path="/recipe/:id" element={<RecipeDetailPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

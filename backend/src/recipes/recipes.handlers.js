@@ -3,16 +3,34 @@ const BASE_URL = "https://api.spoonacular.com/recipes";
 // epic 1: general search/suggested recipes
 export async function getRecipesHandler(req, res) {
     const apiKey = process.env.SPOONACULAR_API_KEY;
+    const { query, diet, type, maxReadyTime, maxIngredients, offset } = req.query;
     //console.log("handler called");
     //console.log("api key:", process.env.SPOONACULAR_API_KEY);
 
+     const params = new URLSearchParams({
+        apiKey,
+        number: 18,
+        addRecipeNutrition: false,
+        addRecipeInformation: true
+    });
+
+
+    if (query) params.append("query", query);
+    if (diet) params.append("diet", diet);
+    if (type) params.append("type", type);
+    if (maxReadyTime) params.append("maxReadyTime", maxReadyTime);
+    if (maxIngredients) params.append("maxIngredients", maxIngredients);
+    if (offset) params.append("offset", offset);
+    params.append("sort", "popularity");
+    params.append("sortDirection", "desc");
+
     try {
         const response = await fetch(
-        `${BASE_URL}/complexSearch?apiKey=${apiKey}&addRecipeNutrition=true&addRecipeInformation=true&number=10`
+        `${BASE_URL}/complexSearch?${params}`
         );
         const data = await response.json();
-        // console.log("spoonacular response:", data);
-        res.json(data.results);
+        //console.log("spoonacular data:", JSON.stringify(data).slice(0, 200));
+        res.json(data.results ?? []); // if undefined send an empty array
     } catch (error) {
         res.status(500).json({ message: "Failed to fetch recipes" });
     }
@@ -102,9 +120,24 @@ export async function getRecipeByIdHandler(req, res) {
         `${BASE_URL}/${id}/information?apiKey=${apiKey}&addRecipeNutrition=true`
         );
         const data = await response.json();
-        console.log("spoonacular response:", data);
-        res.json(data.results);
+        // console.log("spoonacular response:", data);
+        res.json(data);
     } catch (error) {
         res.status(500).json({ message: "Failed to fetch recipe details" });
     }
+}
+
+// see similar recipes
+export async function getSimilarRecipesHandler(req, res) {
+  const apiKey = process.env.SPOONACULAR_API_KEY;
+  const { id } = req.params;
+  try {
+    const response = await fetch(
+      `${BASE_URL}/${id}/similar?apiKey=${apiKey}&number=6`
+    );
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch similar recipes" });
+  }
 }
