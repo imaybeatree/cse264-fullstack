@@ -27,10 +27,21 @@ export function LandingBanner() {
             className="bowl-subtitle"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
+            transition={{ duration: 0.5, delay: 1.1, ease: "easeOut" }}
           >
             Cook simple and delicious meals from the comfort of your home
           </motion.p>
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.3, ease: "easeOut" }}
+            href="/register"
+            className="btn btn-primary"
+          >
+            Get Started
+          </motion.a>
         </div>
         <motion.img
           src="/landing/spoon.png" alt="spoon" className="utensil"

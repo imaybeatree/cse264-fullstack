@@ -1,5 +1,4 @@
 .header {
-  position: top;
   z-index: 100;
   width: 100%;
   background-color: var(--background);
@@ -64,7 +63,25 @@
   gap: 1rem;
 }
 
-.header.is-pill {
+@media (max-width: 768px) {
+  .header-nav {
+    display: none;
+  }
+
+  .header {
+  position: sticky;
+  top: 0;
+  }
+
+  .btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .header.is-pill {
   position: sticky;
   top: 0;
   max-width: 900px;
@@ -78,9 +95,4 @@
   background: white;
   backdrop-filter: blur(12px);
 }
-
-@media (max-width: 768px) {
-  .header-nav {
-    display: none;
-  }
 }
