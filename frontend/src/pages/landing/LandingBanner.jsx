@@ -1,6 +1,9 @@
 import { motion } from "motion/react";
 import "@/css/landing-banner.css";
 
+
+// Test comment
+
 export function LandingBanner() {
   return (
     <div className="landing-banner">

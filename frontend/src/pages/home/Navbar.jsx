@@ -18,6 +18,7 @@ export default function Navbar() {
         {/* see account details */}
         <a href="/account">Account</a>
         {/* user can log out */}
+        <a href="/onboarding">Preferences</a>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </nav>

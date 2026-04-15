@@ -41,7 +41,7 @@ export default function RegisterPage() {
         }
 
         const params = new URLSearchParams(window.location.search);
-        const after = params.get("after") || "/home";
+        const after = params.get("after") || "/onboarding";
         navigate(`/redirect?after=${encodeURIComponent(after)}`);
       }
     } catch (err) {
