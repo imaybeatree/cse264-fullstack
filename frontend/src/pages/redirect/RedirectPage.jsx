@@ -16,6 +16,10 @@ export default function RedirectPage() {
           navigate("/verify", { replace: true });
           return;
         }
+        if (!payload.onboarded){
+          navigate("/onboarding", { replace: true });
+          return;
+        }
       } catch {
         // invalid token, let RouteGuard handle it
       }
