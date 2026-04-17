@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { http } from "../../lib/http";
-import { setToken } from "../../lib/token";
+import { removeToken } from "../../lib/token";
 import "@/css/auth.css";
 
 export default function VerifyPage() {
@@ -21,7 +21,7 @@ export default function VerifyPage() {
       try {
         const res = await http().get(`/api/auth/verify?token=${token}`);
         const data = await res.json();
-        if (data.token) setToken(data.token);
+        removeToken();
         setVerified(true);
         setMessage(data.message || "Account verified!");
       } catch (err) {
@@ -68,9 +68,9 @@ export default function VerifyPage() {
       <div className="auth-page">
         <div className="auth-card">
           <h1>Account Verified</h1>
-          <p className="auth-subtitle">Your email has been verified successfully.</p>
-          <Link to="/home">
-            <button className="btn btn-primary">Continue</button>
+          <p className="auth-subtitle">Your email has been verified. Please log in to continue.</p>
+          <Link to="/login">
+            <button className="btn btn-primary">Go to Login</button>
           </Link>
         </div>
       </div>
@@ -83,8 +83,8 @@ export default function VerifyPage() {
         <div className="auth-card">
           <h1>Verification Failed</h1>
           <div className="auth-error">{error}</div>
-          <Link to="/login">
-            <button className="btn btn-primary">Go to Login</button>
+          <Link to="/">
+            <button className="btn btn-primary">Back</button>
           </Link>
         </div>
       </div>

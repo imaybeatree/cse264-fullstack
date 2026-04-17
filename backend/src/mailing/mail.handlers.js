@@ -68,13 +68,11 @@ export const verifyEmailHandler = async (req, res) => {
       return res.status(400).json({ error: "Email already verified" });
     }
     // verify user
-    const user = await prisma.user.update({
+    await prisma.user.update({
       where: { id: data.userId },
       data: { verified: true },
     });
-    // create new verified token
-    const newToken = generateJwtToken({ userId: user.id, verified: true });
-    res.status(200).json({ message: "Email verified successfully", token: newToken });
+    res.status(200).json({ message: "Email verified successfully" });
   } catch (err) {
     console.error("Verify error:", err);
     res.status(400).json({ error: "Invalid or expired token" });
