@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { http } from "../../lib/http";
 import "@/css/auth.css";
 import "@/css/onboarding.css";
 
