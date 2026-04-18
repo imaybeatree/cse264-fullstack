@@ -81,12 +81,6 @@ export default function HomePage() {
   <div className="home-container">
     {/* Navbar link */}
      <Navbar />
-    {/* Search Bar */}
-    {/* <div className="search-bar">
-    <input className="search-input" type="text" placeholder="Search recipes..." />
-    <button className="search-button">Search</button>
-    </div> */}
-    <SearchBar onSearch={handleSearch} />
      {/* Welcome Section */}
     {!hasSearched && (
       <div className="welcome-section">
@@ -94,6 +88,13 @@ export default function HomePage() {
         <p className="welcome-subtitle">What are you cooking today?</p>
       </div>
     )}
+     {/* Search Bar */}
+    <SearchBar onSearch={handleSearch} />
+    {/* saved recipes */}
+    <div className="saved-section">
+      <h2>Saved Recipes</h2>
+      <p>You haven’t saved any recipes yet. Save recipes to find them here later.</p>
+    </div>
     {/* Suggested recipes  */}
     <h2 className="home-title">Suggested Recipes</h2>
     <div className="message"> {message && <p className="search-message">{message}</p>} </div>
