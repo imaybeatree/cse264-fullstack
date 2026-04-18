@@ -13,6 +13,8 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-logo">🍽 Food App</div>
       <div className="navbar-links">
+        {/* go back to home */}
+         <a href ="/home">Home</a>
         {/* see saved recipes */}
         <a href="/saved">Saved Recipes</a>
         {/* see account details */}

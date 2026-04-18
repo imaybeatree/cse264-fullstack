@@ -80,3 +80,8 @@
   font-size: 15px;
   color: #666;
 }
+
+.message {
+  display: flex;
+  justify-content: center;
+}
