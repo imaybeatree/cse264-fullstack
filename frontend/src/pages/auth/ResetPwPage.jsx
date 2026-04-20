@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { http } from "../../lib/http";
 import "@/css/auth.css"
 
@@ -12,6 +12,14 @@ export default function ResetPwPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // if not token go back home
+  useEffect(() => {
+    if(!token) {
+        navigate("/");
+    }
+  }, [])
+
 
   async function handleSubmit(e) {
     e.preventDefault();
