@@ -13,6 +13,8 @@ export default function HomePage() {
     // to offset recipes
     const [offset, setOffset] = useState(0);
     const [currentSearch, setCurrentSearch] = useState({ query: "", filters: {} })
+    // error handling
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
       loadRecipes({ query: "", filters: {} }, 0);
@@ -37,17 +39,27 @@ export default function HomePage() {
 
       http().get(`/api/recipes?${params}`)
         .then(res => res.json())
-        .then(data => setRecipes(data || []))
-        .catch(err => {
+        .then(data => {
+          setRecipes(data || []);
+
+          if (!data || data.length === 0) {
+            setMessage("No recipes found.");
+          } else {
+            setMessage("");
+          }
+        })
+      .catch(err => {
           console.log("error:", err);
-          setRecipes([]);  // set empty so page doesn't crash
-        });
+          setRecipes([]); // set empty so page doesnt crash
+          setMessage("Something went wrong. Please try again.");
+      });
   }
 
  
   // handles search data
   function handleSearch(searchData) {
     setOffset(0);  // reset on new search
+    setCurrentSearch(searchData);
     loadRecipes(searchData, 0);
   }
 
@@ -69,12 +81,6 @@ export default function HomePage() {
   <div className="home-container">
     {/* Navbar link */}
      <Navbar />
-    {/* Search Bar */}
-    {/* <div className="search-bar">
-    <input className="search-input" type="text" placeholder="Search recipes..." />
-    <button className="search-button">Search</button>
-    </div> */}
-    <SearchBar onSearch={handleSearch} />
      {/* Welcome Section */}
     {!hasSearched && (
       <div className="welcome-section">
@@ -82,8 +88,16 @@ export default function HomePage() {
         <p className="welcome-subtitle">What are you cooking today?</p>
       </div>
     )}
+     {/* Search Bar */}
+    <SearchBar onSearch={handleSearch} />
+    {/* saved recipes */}
+    <div className="saved-section">
+      <h2>Saved Recipes</h2>
+      <p>You haven’t saved any recipes yet. Save recipes to find them here later.</p>
+    </div>
     {/* Suggested recipes  */}
     <h2 className="home-title">Suggested Recipes</h2>
+    <div className="message"> {message && <p className="search-message">{message}</p>} </div>
     <div className="recipe-grid">
       {recipes.map((recipe) => (
         <RecipeCard key={recipe.id}
