@@ -5,25 +5,38 @@
   background-attachment: scroll;
 }
 
-.landing-content {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 4rem;
+.features-section {
+  position: relative;
+  z-index: 10;
+  padding: 8rem 1.5rem 6rem;
+  margin-top: -2rem;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+  background: linear-gradient(180deg, rgba(255, 250, 240), white);
+  box-shadow: 0 -24px 60px rgba(110, 86, 52, 0.08);
 }
 
-.features-section {
-  padding: 6rem 1.5rem;
+.features-scroll-section {
+  min-height: 520vh;
+  padding-bottom: 0;
+}
+
+.features-scroll-sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  padding: 1rem 1.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
 }
 
 .section-header {
-  max-width: 700px;
+  max-width: 70vw;
   margin: 0 auto 4rem;
+  font-size: 3rem;
+  color: var(--primary);
   text-align: center;
 }
 
@@ -33,19 +46,43 @@
   color: var(--muted-foreground);
 }
 
+.features-scroll-header {
+  position: relative;
+  z-index: 2;
+  max-width: min(70vw, 60rem);
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.features-scroll-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.feature-scroll-frame {
+  position: absolute;
+  width: min(100%, 1080px);
+}
+
 .features-grid {
-  max-width: 1200px;
+  max-width: 1080px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .feature-card {
-  background-color: var(--card);
-  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+  align-items: center;
+  min-height: 28rem;
   border-radius: 20px;
   padding: 2rem;
+  overflow: hidden;
   transition:
     transform 150ms ease,
     box-shadow 150ms ease;
@@ -53,6 +90,10 @@
 
 .feature-card:hover {
   transform: translateY(-4px);
+}
+
+.feature-copy {
+  text-align: left;
 }
 
 .feature-icon {
@@ -77,17 +118,230 @@
 .feature-description {
   margin-top: 1rem;
   color: var(--muted-foreground);
+  max-width: 34ch;
+  line-height: 1.7;
 }
 
-@media (min-width: 640px) {
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
+.feature-image-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  padding: 1.5rem;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 60%),
+    linear-gradient(135deg, rgba(255, 214, 170, 0.7), rgba(255, 245, 228, 0.95));
+}
+
+.feature-image {
+  width: min(100%, 220px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px rgba(34, 24, 12, 0.18));
+}
+
+.search-demo {
+  height: 4.75rem;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  box-shadow: 0 18px 30px rgba(37, 99, 235, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.search-demo-icon {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-demo-text {
+  margin-left: 1rem;
+  white-space: nowrap;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.dietary-demo {
+  position: relative;
+  width: min(100%, 21rem);
+  min-height: 16rem;
+  display: grid;
+  place-items: center;
+}
+
+.dietary-demo-item {
+  position: absolute;
+  width: 8.75rem;
+  height: 8.75rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 28px rgba(110, 86, 52, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dietary-demo-egg {
+  top: 1rem;
+  left: 1.25rem;
+}
+
+.dietary-demo-walnut {
+  right: 1.25rem;
+  bottom: 1.75rem;
+}
+
+.dietary-demo-image {
+  width: 5.5rem;
+  height: 5.5rem;
+  object-fit: contain;
+}
+
+.dietary-demo-strike {
+  position: absolute;
+  left: 6%;
+  top: 48%;
+  width: 88%;
+  height: 0.42rem;
+  transform: rotate(38deg);
+  pointer-events: none;
+}
+
+.dietary-demo-strike-line {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: #dc2626;
+  transform-origin: left center;
+  box-shadow: 0 0 0 0.18rem rgba(255, 255, 255, 0.6);
+}
+
+.quickmeal-demo {
+  position: relative;
+  width: min(100%, 20rem);
+  min-height: 18rem;
+  display: grid;
+  place-items: center;
+}
+
+.quickmeal-clock {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  display: grid;
+  place-items: center;
+}
+
+.quickmeal-clock-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.quickmeal-clock-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 0.42rem solid black;
+  background: white
+}
+
+.quickmeal-hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  border-radius: 999px;
+  background: var(--primary);
+  transform-origin: center bottom;
+}
+
+.quickmeal-hour {
+  width: 0.34rem;
+  height: 2.4rem;
+  margin-left: -0.17rem;
+}
+
+.quickmeal-minute {
+  width: 0.26rem;
+  height: 3.65rem;
+  margin-left: -0.13rem;
+  background: #0f172a;
+}
+
+.quickmeal-center-dot {
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 0.24rem rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 767px) {
+  .section-header {
+    max-width: min(90vw, 34rem);
   }
-}
 
-@media (min-width: 1024px) {
-  .features-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .features-section {
+    padding-top: 2rem;
+    margin-top: -1rem;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+  }
+
+  .features-scroll-section {
+    min-height: 460vh;
+  }
+
+  .features-scroll-sticky {
+    padding-top: 1.5rem;
+    align-items: center;
+  }
+
+  .features-scroll-stage {
+    padding-top: 5rem;
+    align-items: flex-start;
+  }
+
+  .features-scroll-header {
+    max-width: min(90vw, 34rem);
+  }
+
+  .feature-card {
+    grid-template-columns: 1fr;
+    min-height: 32rem;
+    padding: 1.5rem;
+  }
+
+  .feature-description {
+    max-width: none;
+  }
+
+  .feature-image-shell {
+    min-height: 180px;
+  }
+
+  .quickmeal-demo {
+    min-height: 15rem;
+  }
+
+  .quickmeal-clock {
+    width: 10rem;
+    height: 10rem;
   }
 }
 

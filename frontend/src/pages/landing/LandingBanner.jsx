@@ -2,9 +2,6 @@ import { motion, useMotionValue, useTransform, animate } from "motion/react";
 import { useEffect } from "react";
 import "@/css/landing-banner.css";
 
-
-// Test comment
-
 function CountStat({ to, label, delay = 1.2 }) {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (v) => Math.floor(v).toLocaleString());
@@ -41,8 +38,9 @@ function HeroStats() {
 
 export function LandingBanner() {
   return (
-    <div className="landing-banner">
-      <div className="utensils-title-wrapper">
+    <section className="landing-banner">
+      <div className="landing-banner-inner">
+        <div className="utensils-title-wrapper">
         <motion.img
           src="/landing/fork.png" alt="fork" className="utensil"
           initial={{ x: "-170%", y: 800, rotate: -15}}
@@ -141,6 +139,7 @@ export function LandingBanner() {
 
         <img src="/landing/bowl_front.png" alt="" className="bowl-front-img" />
       </div>
-    </div>
+      </div>
+    </section>
   );
 }
