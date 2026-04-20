@@ -1,0 +1,102 @@
+.saved-section {
+  margin: 1.25rem 0 2rem;
+  padding: 1rem 1.1rem 1.2rem;
+  background: #f4efe7;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.saved-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  gap: 10px;
+}
+
+.saved-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1f2a44;
+}
+
+.saved-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+  background: white;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+}
+
+.saved-carousel-shell {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 0.8rem;
+  flex: 1;
+  overflow: hidden;
+}
+
+.saved-card-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.saved-card-wrap .card {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.06);
+  background: white;
+}
+
+.saved-card-wrap .card-image {
+  height: 130px;
+  object-fit: cover;
+}
+
+.saved-card-wrap .card-body {
+  padding: 0.75rem 0.8rem 0.8rem;
+}
+
+.saved-card-wrap .card-title {
+  font-size: 1rem;
+  line-height: 1.25;
+  margin-bottom: 0.45rem;
+}
+
+.saved-card-wrap .card-meta {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 0.65rem;
+}
+
+.saved-card-wrap .card-save-btn {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.carousel-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
