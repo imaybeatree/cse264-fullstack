@@ -44,8 +44,7 @@
 }
 
 .saved-card-wrap {
-  flex: 1;
-  min-width: 0;
+  flex: 0 0 300px;
 }
 
 .saved-card-wrap .card {

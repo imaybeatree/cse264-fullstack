@@ -152,38 +152,36 @@ export default function HomePage() {
      {/* Search Bar */}
     <SearchBar onSearch={handleSearch} />
     {/* saved recipes */}
-    {/* <div className="saved-section">
-      <h2>Saved Recipes</h2>
-      <p>You haven’t saved any recipes yet. Save recipes to find them here later.</p>
-    </div> */}
-    {/* {!hasSearched && ( */}
+    {!hasSearched && (
       <SavedRecipe 
         savedRecipes={savedRecipes}
         onUnsave={handleUnsave}/>
-        {/* )} */}
+      )} 
     {/* Suggested recipes  */}
-    <h2 className="home-title">Suggested Recipes</h2>
-    <div className="message"> {message && <p className="search-message">{message}</p>} </div>
-    <div className="recipe-grid">
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id}
-            id={recipe.id} 
-            name={recipe.title}
-            image={recipe.image}
-            time={recipe.readyInMinutes}
-            cost={recipe.pricePerServing / 100}
-            calories={recipe.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount}
-            isSaved={savedIds.has(recipe.id)}
-            onSave={() => handleSave(recipe)} />
-      ))}
-    </div>
-    {recipes.length > 0 && (
-        <div className="pagination">
-          <button onClick={handlePrev} disabled={offset === 0}>←</button>
-          <span>Page {Math.floor(offset / 20) + 1}</span>
-          <button onClick={handleNext} disabled={recipes.length < 18}>→</button>
+    <div className="suggested-section">
+      <h2 className="home-title">Suggested Recipes</h2>
+      <div className="message"> {message && <p className="search-message">{message}</p>} </div>
+      <div className="recipe-grid">
+        {recipes.map((recipe) => (
+          <RecipeCard key={recipe.id}
+              id={recipe.id} 
+              name={recipe.title}
+              image={recipe.image}
+              time={recipe.readyInMinutes}
+              cost={recipe.pricePerServing / 100}
+              calories={recipe.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount}
+              isSaved={savedIds.has(recipe.id)}
+              onSave={() => handleSave(recipe)} />
+        ))}
+      </div>
+        {recipes.length > 0 && (
+            <div className="pagination">
+              <button onClick={handlePrev} disabled={offset === 0}>←</button>
+              <span>Page {Math.floor(offset / 20) + 1}</span>
+              <button onClick={handleNext} disabled={recipes.length < 18}>→</button>
         </div>
     )}
+     </div>
   </div>
 );
 }
