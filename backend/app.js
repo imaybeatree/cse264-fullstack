@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { corsConfig } from "#auth/cors.js";
 import { loginHandler, registerHandler } from "#auth/auth.handlers.js";
 import { middleware, authOnly } from "#auth/middleware.js";
-// import { getRecipesHandler } from "#recipes/recipes.handlers.js";
+import userRouter from "#user/user.routes.js";
 import recipeRoutes from "#recipes/recipes.routes.js";
 import { sendVerificationEmailHandler, verifyEmailHandler } from "./src/mailing/mail.handlers.js";
 
@@ -51,6 +51,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(middleware)
 
 // fetch api recipes
+app.use("/api/user", userRouter);
 app.use("/api/recipes", recipeRoutes);
 
 app.get("/test-auth", (req, res) => {
