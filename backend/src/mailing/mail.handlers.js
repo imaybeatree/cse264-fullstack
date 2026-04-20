@@ -92,6 +92,7 @@ export const sendResetEmailHandler = async (req, res) => {
     const resetToken = generateJwtToken({ userId: user.id, purpose: "password-reset" });
     const baseUrl = process.env.NODE_ENV !== "production" ? "http://localhost:5173" : "https://quickbites.site"
     const resetUrl = `${baseUrl}/reset?token=${resetToken}`;
+    const to = user.email;
 
     await transporter.sendMail({
       from: `QuickBites <${process.env.SMTP_USER}>`,
