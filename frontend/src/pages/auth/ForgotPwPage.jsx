@@ -17,7 +17,7 @@ export default function ForgotPwPage() {
     setError("");
     try {
         if (import.meta.env.PROD) {
-          http().post("/api/mail/reset", email).catch(() => {});
+          http().post("/api/mail/reset", { email }).catch(() => {});
         }
         setSubmitted(true);
     } catch (err) {
