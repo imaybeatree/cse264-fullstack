@@ -1,6 +1,6 @@
 import { prisma } from "../db/db.js";
 import bcrypt from "bcrypt";
-import { generateJwtToken } from "./auth.token.handlers.js";
+import { generateJwtToken, verifyJwtToken } from "./auth.token.handlers.js";
 
 export const registerHandler = async (req, res) => {
   try {
