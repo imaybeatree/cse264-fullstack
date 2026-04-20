@@ -44,6 +44,41 @@
   z-index: 1;
 }
 
+.recipe-counter-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.recipe-counter-divider {
+  width: 1px;
+  height: 36px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.recipe-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.recipe-counter-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary, #2563eb);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.recipe-counter-label {
+  font-size: 0.95rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .utensil {
   height: 450px;
   width: auto;
@@ -58,7 +93,7 @@
   width: 680px;
   height: 640px;
   flex-shrink: 0;
-  margin-bottom: -250px;
+  margin-bottom: -200px;
 }
 
 .bowl-img {

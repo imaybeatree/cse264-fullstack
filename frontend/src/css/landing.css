@@ -1,3 +1,10 @@
+.landing {
+  background-image: url("/landing/background.jpg");
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: scroll;
+}
+
 .landing-content {
   width: 100%;
   max-width: 900px;
@@ -82,4 +89,37 @@
   .features-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.landing-footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 1.5rem 2rem;
+  background-color: var(--card);
+}
+
+.landing-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.landing-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.landing-footer-link:hover {
+  color: var(--foreground);
+}
+
+.landing-footer-copy {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
 }

@@ -1,8 +1,43 @@
-import { motion } from "motion/react";
+import { motion, useMotionValue, useTransform, animate } from "motion/react";
+import { useEffect } from "react";
 import "@/css/landing-banner.css";
 
 
 // Test comment
+
+function CountStat({ to, label, delay = 1.2 }) {
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (v) => Math.floor(v).toLocaleString());
+
+  useEffect(() => {
+    const controls = animate(count, to, { duration: 2.2, ease: "easeOut", delay });
+    return controls.stop;
+  }, [count, to, delay]);
+
+  return (
+    <div className="recipe-counter">
+      <span className="recipe-counter-num">
+        <motion.span>{rounded}</motion.span>+
+      </span>
+      <span className="recipe-counter-label">{label}</span>
+    </div>
+  );
+}
+
+function HeroStats() {
+  return (
+    <motion.div
+      className="recipe-counter-row"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 1.1, ease: "easeOut" }}
+    >
+      <CountStat to={5000} label="Recipes" />
+      <span className="recipe-counter-divider" />
+      <CountStat to={2600} label="Ingredients" delay={1.3} />
+    </motion.div>
+  );
+}
 
 export function LandingBanner() {
   return (
@@ -10,8 +45,8 @@ export function LandingBanner() {
       <div className="utensils-title-wrapper">
         <motion.img
           src="/landing/fork.png" alt="fork" className="utensil"
-          initial={{ x: "-170%", y: 700, rotate: -15}}
-          animate={{ x: "-170%", y: 350, rotate: -15}}
+          initial={{ x: "-170%", y: 800, rotate: -15}}
+          animate={{ x: "-170%", y: 400, rotate: -15}}
           transition={{ duration: 1, delay: 0.4, type: "spring", bounce: 0.3 }}
         />
         <div className="title-group">
@@ -31,6 +66,7 @@ export function LandingBanner() {
           >
             Cook simple and delicious meals from the comfort of your home
           </motion.p>
+          <HeroStats />
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -45,8 +81,8 @@ export function LandingBanner() {
         </div>
         <motion.img
           src="/landing/spoon.png" alt="spoon" className="utensil"
-          initial={{ x: "70%", y: 700, rotate: 15}}
-          animate={{ x: "70%", y: 350, rotate: 15}}
+          initial={{ x: "70%", y: 800, rotate: 15}}
+          animate={{ x: "70%", y: 400, rotate: 15}}
           transition={{ duration: 1, delay: 0.5, type: "spring", bounce: 0.3 }}
         />
       </div>
