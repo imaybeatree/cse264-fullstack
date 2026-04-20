@@ -28,7 +28,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/onboarding" element={<OnboardingPage />} />
           {/* new routes */}
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />
-           <Route path="/saved-recipes" element={<SavedRecipes/>}/>
+          <Route path="/saved-recipes" element={<SavedRecipes/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

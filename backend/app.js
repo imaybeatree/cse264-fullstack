@@ -34,8 +34,6 @@ app.use(corsConfig());
 
 app.use(express.json()); // for parsing application/json
 
-app.use("/api/user", userRoutes);
-
 app.post("/api/auth/register", registerHandler);
 app.post("/api/auth/login", loginHandler)
 app.get("/api/auth/verify", verifyEmailHandler);

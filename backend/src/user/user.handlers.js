@@ -10,8 +10,8 @@ export async function getUserByName(username) {
 
 export async function saveOnboarding(req, res) {
   try {
-    console.log("res.locals.user:", res.locals.user);
-    console.log("req.body:", req.body);
+    // console.log("res.locals.user:", res.locals.user);
+    // console.log("req.body:", req.body);
 
     const userId = res.locals.user?.userId;
 
@@ -77,6 +77,7 @@ export async function getCurrentUser(req, res) {
 
 // get saved recipes
 export async function getSavedRecipesHandler(req, res) {
+    // console.log("res.locals:", res.locals);
   const userId = res.locals.user.userId;
   try {
     const saved = await prisma.savedRecipe.findMany({ where: { userId } });
