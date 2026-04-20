@@ -9,6 +9,8 @@ import userRouter from "#user/user.routes.js";
 import recipeRoutes from "#recipes/recipes.routes.js";
 import { sendVerificationEmailHandler, verifyEmailHandler } from "./src/mailing/mail.handlers.js";
 
+import userRoutes from "./src/user/user.routes.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -31,6 +33,8 @@ app.listen(PORT, (error) =>{
 app.use(corsConfig());
 
 app.use(express.json()); // for parsing application/json
+
+app.use("/api/user", userRoutes);
 
 app.post("/api/auth/register", registerHandler);
 app.post("/api/auth/login", loginHandler)

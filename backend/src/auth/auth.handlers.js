@@ -28,7 +28,7 @@ export const registerHandler = async (req, res) => {
         verified: process.env.NODE_ENV !== "production", // if not production, auto verify
       },
     });
-    const token = generateJwtToken({ userId: user.id, verified: user.verified })
+    const token = generateJwtToken({ userId: user.id, verified: user.verified, onboarded: user.onboarded})
 
     res.status(201).json({token: token})
   } catch (err) {
@@ -68,7 +68,7 @@ export const loginHandler = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const token = generateJwtToken({ userId: user.id, verified: user.verified })
+    const token = generateJwtToken({ userId: user.id, verified: user.verified, onboarded: user.onboarded})
     res.status(200).json({token: token})
 
   } catch(err){

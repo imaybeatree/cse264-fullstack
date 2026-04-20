@@ -9,6 +9,7 @@ import { RouteGuard } from './components/RouteGuard'
 import HomePage from './pages/home/Homepage'
 import RedirectPage from './pages/redirect/RedirectPage'
 import VerifyPage from './pages/auth/VerifyPage'
+import OnboardingPage from './pages/onboarding/OnboardingPage'
 import RecipeDetailPage from './pages/recipe/RecipeDetailPage'
 import SavedRecipes from './pages/recipe/SavedRecipes'
 
@@ -24,8 +25,10 @@ createRoot(document.getElementById('root')).render(
         <Route element={<RouteGuard />}>
           <Route path="/redirect" element={<RedirectPage />} />
           <Route path="/home" element = {<HomePage/>} />
+          <Route path="/onboarding" element={<OnboardingPage />} />
+          {/* new routes */}
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />
-          <Route path="/saved-recipes" element={<SavedRecipes/>}/>
+           <Route path="/saved-recipes" element={<SavedRecipes/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

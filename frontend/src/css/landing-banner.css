@@ -25,6 +25,10 @@
   margin-bottom: -50px;
 }
 
+.title-group > a {
+  margin-top: 15px;
+}
+
 .bowl-title {
   font-size: 4rem;
   font-weight: 800;
