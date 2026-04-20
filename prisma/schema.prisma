@@ -20,5 +20,20 @@ model User {
   verified          Boolean  @default(false)
   createdAt         DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  savedRecipes SavedRecipe[]
+}
 
+model SavedRecipe {
+  id              Int      @id @default(autoincrement())
+  recipeId        Int
+  title           String
+  image           String
+  readyInMinutes  Int?
+  pricePerServing Float?
+  createdAt       DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, recipeId])
 }
