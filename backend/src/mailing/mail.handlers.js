@@ -85,7 +85,7 @@ export const sendResetEmailHandler = async (req, res) => {
 
     const user = await prisma.user.findUnique({ where: { email: email } });
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(200).json({ message: "If email exists, reset email sent" });
     }
 
     // add purpose so auth token can't be used
@@ -101,7 +101,7 @@ export const sendResetEmailHandler = async (req, res) => {
       html: resetPwEmailTemplate(resetUrl),
     });
 
-    res.status(200).json({ message: "Reset email sent" });
+    res.status(200).json({ message: "If email exists, reset email sent" });
   } catch (err) {
     console.error("Mail error:", err);
     res.status(500).json({ error: "Failed to send email" });
