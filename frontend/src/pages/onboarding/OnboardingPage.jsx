@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { http } from "../../lib/http";
 import "@/css/auth.css";
 import "@/css/onboarding.css";
 
@@ -232,14 +233,7 @@ export default function OnboardingPage() {
     const token = localStorage.getItem("app-token");
 
     try {
-      const response = await fetch("http://localhost:3000/api/user/onboarding", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("app-token")}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await http().post("/api/user/onboarding", formData)
 
       if (!response.ok) {
         throw new Error(`Failed to save onboarding data: ${response.status}`);

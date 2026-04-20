@@ -3,9 +3,10 @@ import '../css/searchbar.css';
 
 
 const filterOptions = {
- difficulty: ["Under 15 min", "Under 30 min", "Under 1 hour", "Easy", "5 ingredients or less"],
- diet: ["Vegan", "Vegetarian", "Gluten-free", "Dairy-free", "Keto", "Pescatarian", "Halal"],
- mealType: ["Breakfast", "Lunch", "Dinner", "Snacks", "Desserts", "Brunch"]
+  time: ["Under 15 min", "Under 30 min", "Under 1 hour"],
+  nutrition: ["High protein", "Low calorie", "High fiber", "Low carbs"],
+  convenience: ["Microwave only", "5 ingredients or less", "Easy"],
+  mealType: ["Breakfast", "Lunch", "Dinner", "Snacks", "Desserts", "Brunch"]
 };
 
 
@@ -13,6 +14,7 @@ export default function SearchBar({ onSearch }) {
  const [query, setQuery] = useState('');
  const [focused, setFocused] = useState(false);
  const [selected, setSelected] = useState({});
+
 
 
  function toggleChip(category, value) {
@@ -29,8 +31,11 @@ export default function SearchBar({ onSearch }) {
 
 
  function handleSearch() {
-    console.log("search clicked", query, selected);
+   // console.log("search clicked", query, selected);
    onSearch({ query, filters: selected });
+   if(!query) {
+
+   }
    setFocused(false);
  }
 

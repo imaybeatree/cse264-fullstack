@@ -1,6 +1,6 @@
 import { prisma } from "../db/db.js";
 import bcrypt from "bcrypt";
-import { generateJwtToken } from "./auth.token.handlers.js";
+import { generateJwtToken, verifyJwtToken } from "./auth.token.handlers.js";
 
 export const registerHandler = async (req, res) => {
   try {
@@ -77,3 +77,35 @@ export const loginHandler = async (req, res) => {
   }
 
 }
+
+export const resetPasswordHandler = async (req, res) => {
+  try {
+    const { token, password } = req.body;
+
+    if (!token) {
+      return res.status(400).json({ error: "Missing token" });
+    }
+
+    const data = verifyJwtToken(token);
+    // check purpose
+    if (data.purpose !== "password-reset") {
+      return res.status(400).json({ error: "Invalid token" });
+    }
+    const user = await prisma.user.findUnique({ where: { id: data.userId } });
+    if (!user) {
+      return res.status(400).json({ error: "User doesn't exist" });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    // verify user
+    await prisma.user.update({
+      where: { id: data.userId },
+      data: { passwordHash: passwordHash },
+    });
+
+    res.status(200).json({ message: "Password changed successfully" });
+  } catch (err) {
+    console.error("Verify error:", err);
+    res.status(400).json({ error: "Invalid or expired token" });
+  }
+};
