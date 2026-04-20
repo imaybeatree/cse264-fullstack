@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { http } from "../../lib/http";
-import { setToken } from "../../lib/token";
 import "@/css/auth.css"
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
+export default function ResetPwPage() {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  const [reset, setReset] = useState(false);
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -20,23 +22,39 @@ export default function LoginPage() {
       return;
     }
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     try {
-      const res = await http().post("/api/auth/login", {
-        email,
+      const res = await http().post("/api/auth/reset", {
+        token,
         password,
       });
 
       const data = await res.json();
-      setToken(data.token);
       if (res.status == 200 || res.status == 201) {
-        const params = new URLSearchParams(window.location.search);
-        const after = params.get("after") || "/home";
-        navigate(`/redirect?after=${encodeURIComponent(after)}`);
+        setReset(true)
       }
     } catch (err) {
-      console.error("Login error:", err);
-      setError("Invalid email or password");
+      console.error("Reset error:", err);
+      setError("Password reset failed.");
     }
+  }
+
+  if(reset) {
+    return (
+    <div className="auth-page">
+        <div className="auth-card">
+            <h1>Password reset!</h1>
+            <p className="auth-subtitle">Your password has been reset. Please log in to continue.</p>
+            <Link to="/login">
+            <button className="btn btn-primary">Go to Login</button>
+            </Link>
+        </div>
+    </div>
+);
   }
 
   return (
@@ -45,22 +63,22 @@ export default function LoginPage() {
         <Link to="/" className="auth-back">
           ← Back
         </Link>
-        <h1>Login</h1>
-        <p className="auth-subtitle">Login to your account.</p>
+        <h1>Reset Password</h1>
+        <p className="auth-subtitle">Enter a new password for you account.</p>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
           <input
             type="password"
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <input
+            type="password"
+            placeholder="confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
           {error && <div className="auth-error">{error}</div>}
@@ -69,10 +87,6 @@ export default function LoginPage() {
             Submit
           </button>
         </form>
-
-        <p className="auth-footer">
-          Forgot your password? <Link to="/forgot">Click here</Link>
-        </p>
       </div>
     </div>
   );
