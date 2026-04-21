@@ -161,11 +161,13 @@ function ScrollFeatureFrame({ progress, featureIndex, start, end }) {
   const frameProgress = useTransform(progress, [start, end], [0, 1]);
   const [hasAnimatedIn, setHasAnimatedIn] = useState(false);
   const fadeWindow = 0.16;
-  const opacity = useTransform(
-    frameProgress,
-    [0, fadeWindow, 1 - fadeWindow, 1],
-    [0, 1, 1, 0]
-  );
+  const opacity = featureIndex === 2
+    ? useTransform(frameProgress, [0, fadeWindow, 1], [0, 1, 1])
+    : useTransform(
+        frameProgress,
+        [0, fadeWindow, 1 - fadeWindow, 1],
+        [0, 1, 1, 0]
+      );
   const y = useTransform(frameProgress, [0, 1], [40, -40]);
   const feature = features[featureIndex] ?? features[0];
 

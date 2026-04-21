@@ -18,7 +18,7 @@ export default function LandingPage() {
     target: featuresRef,
     offset: ["start start", "end end"],
   });
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.18, 0.28, 1], [1, 1, 0, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.21, 0.28, 1], [1, 1, 0, 0]);
 
   return (
     <div className="landing">
