@@ -35,7 +35,7 @@ export const sendVerificationEmailHandler = async (req, res) => {
     const verifyUrl = `${baseUrl}/verify?token=${verifyToken}`;
 
     await transporter.sendMail({
-      from: `QuickBites <${process.env.SMTP_USER}>`,
+      from: `QuickBites <${process.env.SMTP_USER ?? "localhost"}>`,
       to,
       subject: "Verify your email",
       html: verificationEmailTemplate(verifyUrl),
@@ -95,7 +95,7 @@ export const sendResetEmailHandler = async (req, res) => {
     const to = user.email;
 
     await transporter.sendMail({
-      from: `QuickBites <${process.env.SMTP_USER}>`,
+      from: `QuickBites <${process.env.SMTP_USER ?? "localhost"}>`,
       to,
       subject: "Reset your password",
       html: resetPwEmailTemplate(resetUrl),
