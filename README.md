@@ -28,6 +28,8 @@ QuickBites would be a recipe discovery platform that uses the Spoonacular API to
 
 - Express.js
 - MySql
+- Nodemailer
+- MailHog for local email testing
 
 ## Project Structure
 
@@ -69,4 +71,14 @@ QuickBites would be a recipe discovery platform that uses the Spoonacular API to
 - `npm run dev` - Start all packages in development mode
 - `npm run migrate` - Run database migrations
 - `npm run resetdb` - Clear database and reset migrations
+
+## Email Testing
+
+This project uses MailHog in development to capture outgoing emails locally.
+
+- SMTP host: `localhost`
+- SMTP port: `1025`
+- MailHog web UI: `http://localhost:8025`
+
+After starting Docker with `docker-compose up -d`, you can open the MailHog UI in your browser to view verification and password reset emails.
 

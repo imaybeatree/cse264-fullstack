@@ -25,7 +25,7 @@ export const registerHandler = async (req, res) => {
         username: email.split("@")[0].toLowerCase(),
         email: email.toLowerCase(),
         passwordHash,
-        verified: process.env.NODE_ENV !== "production", // if not production, auto verify
+        verified: false,
       },
     });
     const token = generateJwtToken({ userId: user.id, verified: user.verified, onboarded: user.onboarded})

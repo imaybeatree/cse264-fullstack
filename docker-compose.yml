@@ -10,6 +10,14 @@ services:
       MYSQL_DATABASE: fullstackapp
     volumes:
       - db_data:/var/lib/mysql
+  
+  mailhog:
+    image: mailhog/mailhog
+    platform: linux/amd64
+    container_name: mailhog
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
 
 volumes:
   db_data:
