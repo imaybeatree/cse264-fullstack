@@ -80,3 +80,24 @@
   font-size: 15px;
   color: #666;
 }
+
+.message {
+  display: flex;
+  justify-content: center;
+}
+
+.saved-section {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  text-align:center;
+}
+
+.saved-section h2 {
+  margin-bottom: 10px;
+}
+
+.saved-section p {
+  color: #666;
+  max-width: 400px;
+}

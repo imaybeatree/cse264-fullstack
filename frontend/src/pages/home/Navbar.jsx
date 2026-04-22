@@ -21,6 +21,9 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-links">
+        {/* go back to home */}
+         <a href ="/home">Home</a>
+        {/* see saved recipes */}
         <a href="/saved">Saved Recipes</a>
         <a href="/account">Account</a>
         <button onClick={handleLogout}>Logout</button>

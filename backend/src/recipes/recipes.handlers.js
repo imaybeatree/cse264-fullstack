@@ -3,14 +3,16 @@ const BASE_URL = "https://api.spoonacular.com/recipes";
 // epic 1: general search/suggested recipes
 export async function getRecipesHandler(req, res) {
     const apiKey = process.env.SPOONACULAR_API_KEY;
-    const { query, diet, type, maxReadyTime, maxIngredients, offset } = req.query;
+    const { query, diet, type, maxReadyTime, maxIngredients, offset,
+       minProtein, maxCarbs, maxCalories, minFiber, equipment
+     } = req.query;
     //console.log("handler called");
     //console.log("api key:", process.env.SPOONACULAR_API_KEY);
 
      const params = new URLSearchParams({
         apiKey,
         number: 18,
-        addRecipeNutrition: false,
+        addRecipeNutrition: true,
         addRecipeInformation: true
     });
 
@@ -20,6 +22,11 @@ export async function getRecipesHandler(req, res) {
     if (type) params.append("type", type);
     if (maxReadyTime) params.append("maxReadyTime", maxReadyTime);
     if (maxIngredients) params.append("maxIngredients", maxIngredients);
+    if (minProtein) params.append("minProtein", minProtein);
+    if (maxCarbs)   params.append("maxCarbs", maxCarbs);
+    if (maxCalories) params.append("maxCalories", maxCalories);
+    if (minFiber)   params.append("minFiber", minFiber);
+    if (equipment)  params.append("equipment", equipment);
     if (offset) params.append("offset", offset);
     params.append("sort", "popularity");
     params.append("sortDirection", "desc");
@@ -58,7 +65,7 @@ export async function getRecipesByNutrientsHandler(req, res) {
     const { minCalories, maxCalories } = req.query;
      try {
         const response = await fetch(
-        `${BASE_URL}//complexSearch?apiKey=${apiKey}&minProtein=${minProtein}&maxCalories=${maxCalories}&addRecipeNutrition=true&number=10`
+        `${BASE_URL}/complexSearch?apiKey=${apiKey}&minProtein=${minProtein}&maxCalories=${maxCalories}&addRecipeNutrition=true&number=10`
         );
         const data = await response.json();
         // console.log("spoonacular response:", data);
@@ -82,6 +89,10 @@ export async function getFilteredRecipesHandler(req, res) {
     minProtein, maxProtein,
     minCalories, maxCalories,
     minFat, maxFat,
+    maxReadyTime,
+    maxIngredients,
+    equipment
+
   } = req.query;
 
   // build params dynamically - only include what was provided
@@ -101,6 +112,9 @@ export async function getFilteredRecipesHandler(req, res) {
   if (maxCalories) params.append("maxCalories", maxCalories);
   if (minFat) params.append("minFat", minFat);
   if (maxFat) params.append("maxFat", maxFat);
+  if (maxReadyTime) params.append("maxReadyTime", maxReadyTime);
+  if (maxIngredients) params.append("maxIngredients", maxIngredients);
+  if (equipment) params.append("equipment", equipment);
 
   try {
     const response = await fetch(`${BASE_URL}/complexSearch?${params}`);
