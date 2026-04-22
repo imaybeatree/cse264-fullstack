@@ -47,3 +47,30 @@ export async function saveOnboarding(req, res) {
     });
   }
 }
+
+export async function getCurrentUser(req, res) {
+  try {
+    const userId = res.locals.user?.userId;
+
+    if (!userId) {
+      return res.status(400).json({
+        error: "No authenticated user id found",
+      });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        email: true,
+        username: true,
+      },
+    });
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error("getCurrentUser error:", err);
+    res.status(500).json({
+      error: "Failed to fetch user",
+    });
+  }
+}

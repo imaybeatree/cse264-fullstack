@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate, useSearchParams } from "react-router";
 import { http } from "../../lib/http";
 import "@/css/auth.css"
-
+// TODO: make token single use
 export default function ResetPwPage() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
