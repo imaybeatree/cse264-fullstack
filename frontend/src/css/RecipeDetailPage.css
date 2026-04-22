@@ -1,98 +1,217 @@
+.detail-page {
+  min-height: 100vh;
+  background: #f5f3ef;
+  padding: 32px 20px 56px;
+}
+
 .detail-container {
-  max-width: 900px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 40px 24px;
 }
 
 .back-btn {
   background: none;
   border: none;
   font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  color: #22c55e;
-  margin-bottom: 24px;
+  color: #16a34a;
+  margin-bottom: 20px;
   padding: 0;
+  transition: opacity 0.15s ease;
+}
+
+.back-btn:hover {
+  opacity: 0.8;
 }
 
 .detail-hero {
   display: flex;
-  gap: 32px;
-  margin-bottom: 40px;
+  gap: 28px;
+  margin-bottom: 28px;
+  background: #fcfbf8;
+  border: 1px solid #e9e3da;
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
 }
 
 .detail-image {
-  width: 400px;
-  height: 280px;
+  width: 380px;
+  height: 270px;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 18px;
   flex-shrink: 0;
+  border: 1px solid #eee7dd;
 }
 
 .detail-hero-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .detail-title {
-  font-size: 26px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: 750;
   margin-bottom: 16px;
-  line-height: 1.3;
+  line-height: 1.2;
+  color: #1f2937;
 }
 
 .detail-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  font-size: 14px;
-  color: #666;
+  gap: 10px;
   margin-bottom: 16px;
+}
+
+.detail-meta span {
+  font-size: 14px;
+  color: #5f6b76;
+  background: #f4f6f5;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 7px 12px;
 }
 
 .detail-diets {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 18px;
 }
 
 .diet-tag {
-  padding: 4px 12px;
+  padding: 6px 12px;
   background-color: #dcfce7;
-  color: #16a34a;
-  border-radius: 20px;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
   font-size: 13px;
+  font-weight: 600;
+}
+
+.save-btn {
+  align-self: flex-start;
+  border: none;
+  border-radius: 14px;
+  background: #22c55e;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 18px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(34, 197, 94, 0.24);
+}
+
+.save-btn.saved {
+  background: #16a34a;
 }
 
 .detail-section {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
+  background: #fcfbf8;
+  border: 1px solid #e9e3da;
+  border-radius: 22px;
+  padding: 22px 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
 }
 
 .detail-section h2 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 21px;
+  font-weight: 700;
   margin-bottom: 16px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
+  color: #1f2937;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ece7df;
 }
 
 .ingredients-list {
   list-style: disc;
-  padding-left: 20px;
-  line-height: 2;
-  color: #333;
+  padding-left: 22px;
+  line-height: 1.9;
+  color: #374151;
 }
 
 .steps-list {
-  padding-left: 20px;
-  line-height: 1.8;
-  color: #333;
+  padding-left: 22px;
+  line-height: 1.85;
+  color: #374151;
 }
 
 .steps-list li {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.similar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.similar-card {
+  background: #f8faf8;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.similar-card:hover {
+  transform: translateY(-2px);
+  border-color: #cfe9d6;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.similar-title {
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.similar-card span {
+  font-size: 14px;
+  color: #6b7280;
 }
 
 .loading {
   text-align: center;
-  padding: 40px;
+  padding: 48px;
   color: #666;
+  font-size: 16px;
+}
+
+@media (max-width: 800px) {
+  .detail-page {
+    padding: 20px 14px 36px;
+  }
+
+  .detail-hero {
+    flex-direction: column;
+    padding: 16px;
+    gap: 18px;
+  }
+
+  .detail-image {
+    width: 100%;
+    height: 220px;
+  }
+
+  .detail-title {
+    font-size: 24px;
+  }
+
+  .detail-section {
+    padding: 18px;
+  }
 }

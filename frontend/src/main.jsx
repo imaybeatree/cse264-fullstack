@@ -11,6 +11,7 @@ import RedirectPage from './pages/redirect/RedirectPage'
 import VerifyPage from './pages/auth/VerifyPage'
 import OnboardingPage from './pages/onboarding/OnboardingPage'
 import RecipeDetailPage from './pages/recipe/RecipeDetailPage'
+import SavedRecipes from './pages/recipe/SavedRecipes'
 import AccountPage from './pages/account/AccountPage'
 import NotFoundPage from './pages/NotFoundPage';
 import ResetPwPage from './pages/auth/ResetPwPage'
@@ -33,7 +34,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/onboarding" element={<OnboardingPage />} />
           {/* new routes */}
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />
-          <Route path="/account" element={<AccountPage />} />
+          <Route path="/saved-recipes" element={<SavedRecipes/>}/>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
