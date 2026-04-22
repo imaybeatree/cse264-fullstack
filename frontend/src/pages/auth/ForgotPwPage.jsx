@@ -5,38 +5,39 @@ import { http } from "../../lib/http";
 import { setToken } from "../../lib/token";
 import "@/css/auth.css"
 
-export default function LoginPage() {
+export default function ForgotPwPage() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false)
   const navigate = useNavigate();
+
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
-
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters");
-      return;
-    }
-
     try {
-      const res = await http().post("/api/auth/login", {
-        email,
-        password,
-      });
-
-      const data = await res.json();
-      setToken(data.token);
-      if (res.status == 200 || res.status == 201) {
-        const params = new URLSearchParams(window.location.search);
-        const after = params.get("after") || "/home";
-        navigate(`/redirect?after=${encodeURIComponent(after)}`);
-      }
+        if (import.meta.env.PROD) {
+          http().post("/api/mail/reset", { email }).catch(() => {});
+        }
+        setSubmitted(true);
     } catch (err) {
       console.error("Login error:", err);
       setError("Invalid email or password");
     }
+  }
+
+  if (submitted){
+    return (
+    <div className="auth-page">
+      <div className="auth-card">
+        <Link to="/" className="auth-back">
+          ← Back
+        </Link>
+        <h1>Password reset link sent!</h1>
+        <p className="auth-subtitle">If the email exists, it should receive the link shortly.</p>
+      </div>
+    </div>
+    )
   }
 
   return (
@@ -45,8 +46,8 @@ export default function LoginPage() {
         <Link to="/" className="auth-back">
           ← Back
         </Link>
-        <h1>Login</h1>
-        <p className="auth-subtitle">Login to your account.</p>
+        <h1>Forgot password?</h1>
+        <p className="auth-subtitle">Enter the email linked to your account.</p>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -56,23 +57,12 @@ export default function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
           {error && <div className="auth-error">{error}</div>}
 
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </form>
-
-        <p className="auth-footer">
-          Forgot your password? <Link to="/forgot">Click here</Link>
-        </p>
       </div>
     </div>
   );

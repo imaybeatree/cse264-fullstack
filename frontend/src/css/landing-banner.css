@@ -1,12 +1,24 @@
 .landing-banner {
   width: 100%;
-  background-color: antiquewhite;
+  min-height: calc(100svh - 74px);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.9), transparent 38%),
+    linear-gradient(180deg, #fdf1de 0%, #f6e7cb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.landing-banner-inner {
+  width: 100%;
+  max-width: 1240px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 30px;
-  overflow: hidden;
 }
 
 .utensils-title-wrapper {
@@ -14,7 +26,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 5rem;
 }
 
 .title-group {
@@ -22,7 +34,7 @@
   flex-direction: column;
   align-items: center;
   z-index: 1;
-  margin-bottom: -50px;
+  margin-bottom: -85px;
 }
 
 .title-group > a {
@@ -44,8 +56,43 @@
   z-index: 1;
 }
 
+.recipe-counter-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.recipe-counter-divider {
+  width: 1px;
+  height: 36px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.recipe-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.recipe-counter-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary, #2563eb);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.recipe-counter-label {
+  font-size: 0.95rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .utensil {
-  height: 450px;
+  height: 500px;
   width: auto;
   z-index: 2;
   position: absolute;
@@ -55,10 +102,10 @@
 /* 3hrs of work worth?? */
 .bowl-scene {
   position: relative;
-  width: 680px;
-  height: 640px;
+  width: 740px;
+  height: 690px;
   flex-shrink: 0;
-  margin-bottom: -250px;
+  margin-bottom: -280px;
 }
 
 .bowl-img {
@@ -85,7 +132,7 @@
 .food-item {
   position: absolute;
   z-index: 2;
-  width: 240px;
+  width: 260px;
   height: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
@@ -93,47 +140,108 @@
 .food-chicken {
   top: 15%;
   left: 50%;
-  width: 600px;
+  width: 660px;
 }
 
 .food-chilli {
   top: 32%;
   left: 1%;
-  width: 220px;
+  width: 240px;
 }
 
 .food-longbeans {
   top: 34%;
   left: 10%;
-  width: 230px;
+  width: 250px;
 }
 
 .food-mushroom {
   top: 37%;
   left: 20%;
-  width: 200px;
+  width: 220px;
 }
 
 .food-potato {
   top: 35%;
   right: 15%;
-  width: 220px;
+  width: 240px;
 }
 
 .food-mushroom-2 {
   top: 40%;
   right: 7%;
-  width: 180px;
+  width: 200px;
 }
 
 .food-mushroom-3 {
   top: 42%;
   left: 42%;
-  width: 170px;
+  width: 185px;
 }
 
 .food-chilli-2 {
   top: 40%;
   right: 20%;
-  width: 200px;
+  width: 220px;
+}
+
+@media (max-width: 767px) {
+  .landing-banner {
+    min-height: calc(100svh - 64px);
+    padding-top: 1rem;
+  }
+
+  .utensils-title-wrapper {
+    width: 100%;
+    margin-top: 2.5rem;
+  }
+
+  .title-group {
+    margin-bottom: -30px;
+  }
+
+  .bowl-title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    text-align: center;
+  }
+
+  .bowl-subtitle {
+    text-align: center;
+    max-width: 30ch;
+  }
+
+  .recipe-counter-row {
+    gap: 1rem;
+  }
+
+  .utensil {
+    display: none;
+  }
+
+  .bowl-scene {
+    width: min(100vw, 520px);
+    height: 470px;
+    margin-bottom: -170px;
+  }
+
+  .food-item {
+    width: 176px;
+  }
+
+  .food-chicken {
+    width: 390px;
+  }
+
+  .food-chilli,
+  .food-longbeans,
+  .food-potato,
+  .food-chilli-2 {
+    width: 164px;
+  }
+
+  .food-mushroom,
+  .food-mushroom-2,
+  .food-mushroom-3 {
+    width: 142px;
+  }
 }

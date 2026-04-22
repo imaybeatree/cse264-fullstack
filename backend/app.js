@@ -3,11 +3,11 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { corsConfig } from "#auth/cors.js";
-import { loginHandler, registerHandler } from "#auth/auth.handlers.js";
+import { loginHandler, registerHandler, resetPasswordHandler } from "#auth/auth.handlers.js";
 import { middleware, authOnly } from "#auth/middleware.js";
 import userRouter from "#user/user.routes.js";
 import recipeRoutes from "#recipes/recipes.routes.js";
-import { sendVerificationEmailHandler, verifyEmailHandler } from "./src/mailing/mail.handlers.js";
+import { sendVerificationEmailHandler, verifyEmailHandler, sendResetEmailHandler } from "./src/mailing/mail.handlers.js";
 
 import userRoutes from "./src/user/user.routes.js";
 
@@ -37,6 +37,8 @@ app.use(express.json()); // for parsing application/json
 app.post("/api/auth/register", registerHandler);
 app.post("/api/auth/login", loginHandler)
 app.get("/api/auth/verify", verifyEmailHandler);
+app.post("/api/auth/reset", resetPasswordHandler);
+app.post("/api/mail/reset", sendResetEmailHandler);
 
 // auth required but unverified users allowed
 app.post("/api/mail/send", authOnly, sendVerificationEmailHandler);
