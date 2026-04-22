@@ -1,7 +1,10 @@
 import "../css/RecipeCard.css";
 import { useNavigate } from 'react-router'
 
-export default function RecipeCard({ id, name, image, time, cost, calories, onSave }) {
+export default function RecipeCard({ id, 
+  name, image, time, cost, calories, 
+  onSave = () => {}, isSaved, 
+}) {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +20,7 @@ export default function RecipeCard({ id, name, image, time, cost, calories, onSa
         <button className="card-save-btn" onClick={(e) => {
           e.stopPropagation(); // stops card click from firing
           onSave();
-        }}>Save Recipe</button>
+        }}>{isSaved ? "Unsave Recipe" : "Save Recipe"}</button>
       </div>
     </div>
   );

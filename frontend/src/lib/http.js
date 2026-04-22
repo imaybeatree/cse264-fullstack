@@ -46,5 +46,10 @@ export const http = () => {
         method: "PATCH",
         body: body ? JSON.stringify(body) : undefined,
       }),
+
+      delete: (url) =>
+        request(url, {
+          method: "DELETE",
+      }),
   };
 }
