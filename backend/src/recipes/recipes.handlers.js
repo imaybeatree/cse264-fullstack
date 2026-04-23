@@ -65,7 +65,7 @@ export async function getRecipesHandler(req, res) {
   const params = new URLSearchParams({
     apiKey,
     number: 18,
-    addRecipeNutrition: false,
+    addRecipeNutrition: true,
     addRecipeInformation: true
   });
 
