@@ -108,6 +108,8 @@ export default function OnboardingPage() {
   const [ingredientInput, setIngredientInput] = useState("");
   const [allergies, setAllergies] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const [allergySuggestions, setAllergySuggestions] = useState([]);
+  const [ingredientSuggestions, setIngredientSuggestions] = useState([]);
   const [saved, setSaved] = useState(false);
 
   function handleCheckboxChange(e) {
@@ -130,6 +132,7 @@ export default function OnboardingPage() {
     });
 
     setAllergyInput("");
+    setAllergySuggestions([]);
   }
 
   function toggleIngredient(item) {
@@ -144,6 +147,7 @@ export default function OnboardingPage() {
     });
 
     setIngredientInput("");
+    setIngredientSuggestions([]);
   }
 
   function addCustomAllergy(value) {
@@ -164,39 +168,68 @@ export default function OnboardingPage() {
     });
 
     setAllergyInput("");
+    setAllergySuggestions([]);
   }
 
-  function addIngredient(value) {
-    const formatted = formatValue(value);
-    if (!formatted) return;
-
-    const item = {
-      label: formatLabel(formatted),
-      value: formatted,
-      image: formatted.replace(/\s+/g, "-"),
-    };
-
-    setIngredients((prev) => {
-      if (prev.some((ingredient) => ingredient.value === item.value)) {
-        return prev;
-      }
-      return [...prev, item];
-    });
-
-    setIngredientInput("");
+  function addIngredient() {
+    alert("Please select an ingredient from the suggestions.");
   }
 
-  function handleAllergyKeyDown(e) {
-    if (e.key === "Enter" || e.key === ",") {
-      e.preventDefault();
-      addCustomAllergy(allergyInput);
+  function addAllergy() {
+    alert("Please select an allergen from the suggestions.");
+  }
+
+  async function handleAllergySearch(e) {
+    const value = e.target.value;
+    setAllergyInput(value);
+
+    if (!value.trim()) {
+      setAllergySuggestions([]);
+      return;
+    }
+
+    try {
+      const res = await http().get(
+        `/api/ingredients/search?query=${encodeURIComponent(value)}`
+      );
+      const data = await res.json();
+      setAllergySuggestions(data || []);
+    } catch (err) {
+      console.error(err);
+      setAllergySuggestions([]);
     }
   }
 
-  function handleIngredientKeyDown(e) {
+  async function handleIngredientSearch(e) {
+    const value = e.target.value;
+    setIngredientInput(value);
+
+    if (!value.trim()) {
+      setIngredientSuggestions([]);
+      return;
+    }
+
+    try {
+      const res = await http().get(
+        `/api/ingredients/search?query=${encodeURIComponent(value)}`
+      );
+      const data = await res.json();
+      setIngredientSuggestions(data || []);
+    } catch (err) {
+      console.error(err);
+      setIngredientSuggestions([]);
+    }
+  }
+
+  function handleKeyDown(e, type) {
     if (e.key === "Enter" || e.key === ",") {
       e.preventDefault();
-      addIngredient(ingredientInput);
+
+      if (type === "allergy") {
+        addAllergy();
+      } else if (type === "ingredient") {
+        addIngredient();
+      }
     }
   }
 
@@ -230,10 +263,8 @@ export default function OnboardingPage() {
       ingredients,
     };
 
-    const token = localStorage.getItem("app-token");
-
     try {
-      const response = await http().post("/api/user/onboarding", formData)
+      const response = await http().post("/api/user/onboarding", formData);
 
       if (!response.ok) {
         throw new Error(`Failed to save onboarding data: ${response.status}`);
@@ -317,26 +348,46 @@ export default function OnboardingPage() {
           {step === 2 && (
             <section className="onboarding-section">
               <h2>Allergies or Ingredients to Avoid</h2>
-              <p>
-                Search and press Enter to add items, or select from common
-                allergens below.
-              </p>
 
               <div className="ingredient-search-row">
                 <input
                   type="text"
-                  placeholder="Search allergens to avoid"
+                  placeholder="Search allergens"
                   value={allergyInput}
-                  onChange={(e) => setAllergyInput(e.target.value)}
-                  onKeyDown={handleAllergyKeyDown}
+                  onChange={handleAllergySearch}
                 />
-                <button
-                  type="button"
-                  className="add-chip-btn"
-                  onClick={() => addCustomAllergy(allergyInput)}
-                >
+
+                <button type="button" className="add-chip-btn" onClick={addAllergy}>
                   Add
                 </button>
+
+                {allergySuggestions.length > 0 && (
+                  <div className="suggestions-dropdown">
+                    {allergySuggestions.map((item) => (
+                      <div
+                        key={item.id}
+                        className="suggestion-item"
+                        onClick={() => {
+                          const selected = {
+                            label: formatLabel(item.name),
+                            value: item.name.toLowerCase(),
+                            image: item.name.replace(/\s+/g, "-"),
+                          };
+
+                          setAllergies((prev) => {
+                            if (prev.some((a) => a.value === selected.value)) return prev;
+                            return [...prev, selected];
+                          });
+
+                          setAllergyInput("");
+                          setAllergySuggestions([]);
+                        }}
+                      >
+                        {item.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="quick-pick-section">
@@ -347,11 +398,7 @@ export default function OnboardingPage() {
                       key={item.value}
                       type="button"
                       className={`allergen-card ${
-                        allergies.some(
-                          (allergy) => allergy.value === item.value
-                        )
-                          ? "selected"
-                          : ""
+                        allergies.some((a) => a.value === item.value) ? "selected" : ""
                       }`}
                       onClick={() => toggleAllergy(item)}
                     >
@@ -359,10 +406,6 @@ export default function OnboardingPage() {
                         src={getIngredientImage(item.image)}
                         alt={item.label}
                         className="allergen-card-image"
-                        onError={(e) => {
-                          e.currentTarget.src =
-                            "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg";
-                        }}
                       />
                       <span>{item.label}</span>
                     </button>
@@ -387,26 +430,50 @@ export default function OnboardingPage() {
           {step === 3 && (
             <section className="onboarding-section">
               <h2>Ingredients You Usually Have</h2>
-              <p>
-                Search and add common ingredients so we can recommend more useful
-                recipes based on what you already keep at home.
-              </p>
 
               <div className="ingredient-search-row">
                 <input
                   type="text"
-                  placeholder="Search ingredients you usually keep at home"
+                  placeholder="Search ingredients"
                   value={ingredientInput}
-                  onChange={(e) => setIngredientInput(e.target.value)}
-                  onKeyDown={handleIngredientKeyDown}
+                  onChange={handleIngredientSearch}
                 />
+
                 <button
                   type="button"
                   className="add-chip-btn"
-                  onClick={() => addIngredient(ingredientInput)}
+                  onClick={addIngredient}
                 >
                   Add
                 </button>
+
+                {ingredientSuggestions.length > 0 && (
+                  <div className="suggestions-dropdown">
+                    {ingredientSuggestions.map((item) => (
+                      <div
+                        key={item.id}
+                        className="suggestion-item"
+                        onClick={() => {
+                          const selected = {
+                            label: formatLabel(item.name),
+                            value: item.name.toLowerCase(),
+                            image: item.name.replace(/\s+/g, "-"),
+                          };
+
+                          setIngredients((prev) => {
+                            if (prev.some((i) => i.value === selected.value)) return prev;
+                            return [...prev, selected];
+                          });
+
+                          setIngredientInput("");
+                          setIngredientSuggestions([]);
+                        }}
+                      >
+                        {item.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="quick-pick-section">
@@ -417,9 +484,7 @@ export default function OnboardingPage() {
                       key={item.value}
                       type="button"
                       className={`allergen-card ${
-                        ingredients.some(
-                          (ingredient) => ingredient.value === item.value
-                        )
+                        ingredients.some((i) => i.value === item.value)
                           ? "selected"
                           : ""
                       }`}
@@ -429,10 +494,6 @@ export default function OnboardingPage() {
                         src={getIngredientImage(item.image)}
                         alt={item.label}
                         className="allergen-card-image"
-                        onError={(e) => {
-                          e.currentTarget.src =
-                            "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg";
-                        }}
                       />
                       <span>{item.label}</span>
                     </button>
