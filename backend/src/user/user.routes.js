@@ -1,11 +1,19 @@
 import express from "express";
-import { saveOnboarding } from "./user.handlers.js";
-import { authOnly } from "#auth/middleware.js";
-import { getCurrentUser, getSavedRecipesHandler, saveRecipeHandler, unsaveRecipeHandler} from "./user.handlers.js";
+import {
+  getCurrentUser,
+  getSavedRecipesHandler,
+  saveOnboarding,
+  saveRecipeHandler,
+  unsaveRecipeHandler,
+  updateCurrentUserName,
+  updateCurrentUserPassword,
+} from "./user.handlers.js";
 const router = express.Router();
 
-router.post("/onboarding", authOnly, saveOnboarding);
-router.get("/me", authOnly, getCurrentUser);
+router.post("/onboarding", saveOnboarding);
+router.get("/me", getCurrentUser);
+router.patch("/me/name", updateCurrentUserName);
+router.patch("/me/password", updateCurrentUserPassword);
 
 router.get("/saved-recipes", getSavedRecipesHandler);
 router.post("/saved-recipes", saveRecipeHandler);
