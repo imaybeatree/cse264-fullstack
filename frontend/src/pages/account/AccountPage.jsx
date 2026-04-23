@@ -10,11 +10,22 @@ export default function AccountPage() {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+        http().post("/api/mail/reset", { email }).catch(() => {});
+        alert("done")
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  }
+
   useEffect(() => {
     http()
       .get("/api/user/me")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         setEmail(data.email);
       })
       .catch((err) => {
@@ -42,7 +53,7 @@ export default function AccountPage() {
 
             <button
                 className="secondary-btn"
-                onClick={() => alert("Password reset not implemented")}
+                onClick={handleSubmit}
             >
                 Reset Password
             </button>

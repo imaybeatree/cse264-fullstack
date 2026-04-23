@@ -1,7 +1,6 @@
-import { motion, useMotionValueEvent, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { Search, ShieldAlert, Clock3 } from "lucide-react";
-import { useState } from "react";
-import "@/css/landing.css";
+import "@/css/landing-features.css";
 
 const features = [
   {
@@ -31,7 +30,6 @@ function LandingFeature({
   imageAlt,
   icon: Icon,
   featureIndex,
-  animateIn,
 }) {
   return (
     <section className="feature-card">
@@ -45,11 +43,11 @@ function LandingFeature({
       
       <div className="feature-image-shell">
         {featureIndex === 0 ? (
-          <SearchFeatureVisual animateIn={animateIn} />
+          <SearchFeatureVisual />
         ) : featureIndex === 1 ? (
-          <DietaryFeatureVisual animateIn={animateIn} />
+          <DietaryFeatureVisual />
         ) : featureIndex === 2 ? (
-          <QuickMealFeatureVisual animateIn={animateIn} />
+          <QuickMealFeatureVisual />
         ) : (
           <img src={imageSrc} alt={imageAlt} className="feature-image" />
         )}
@@ -58,19 +56,21 @@ function LandingFeature({
   );
 }
 
-function SearchFeatureVisual({ animateIn }) {
+function SearchFeatureVisual() {
   return (
     <motion.div
       className="search-demo"
-      initial={{ width: "4.5rem" }}
-      animate={animateIn ? { width: "18rem" } : { width: "4.5rem" }}
-      transition={{ duration: 0.9, ease: "easeInOut", delay: 0.1 }}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
+      viewport={{ once: true, amount: 0.5 }}
     >
       <motion.div
         className="search-demo-icon"
         initial={{ x: 0 }}
-        animate={animateIn ? { x: -6 } : { x: 0 }}
+        whileInView={{ x: -6 }}
         transition={{ duration: 0.9, ease: "easeInOut", delay: 0.1 }}
+        viewport={{ once: true, amount: 0.5 }}
       >
         <Search size={32} strokeWidth={2.4} />
       </motion.div>
@@ -78,8 +78,9 @@ function SearchFeatureVisual({ animateIn }) {
       <motion.div
         className="search-demo-text"
         initial={{ opacity: 0, x: 12 }}
-        animate={animateIn ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
+        whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.45, ease: "easeOut", delay: 0.55 }}
+        viewport={{ once: true, amount: 0.5 }}
       >
         Search recipes
       </motion.div>
@@ -87,22 +88,24 @@ function SearchFeatureVisual({ animateIn }) {
   );
 }
 
-function DietaryFeatureVisual({ animateIn }) {
+function DietaryFeatureVisual() {
   return (
     <div className="dietary-demo">
       <motion.div
         className="dietary-demo-item dietary-demo-egg"
         initial={{ opacity: 0, scale: 0.9 }}
-        animate={animateIn ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.35, ease: "easeOut", delay: 0.05 }}
+        viewport={{ once: true, amount: 0.5 }}
       >
         <img src="/landing/egg.png" alt="Egg allergen" className="dietary-demo-image" />
         <span className="dietary-demo-strike">
           <motion.span
             className="dietary-demo-strike-line"
             initial={{ scaleX: 0 }}
-            animate={animateIn ? { scaleX: 1 } : { scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.35 }}
+            viewport={{ once: true, amount: 0.5 }}
           />
         </span>
       </motion.div>
@@ -110,16 +113,18 @@ function DietaryFeatureVisual({ animateIn }) {
       <motion.div
         className="dietary-demo-item dietary-demo-walnut"
         initial={{ opacity: 0, scale: 0.9 }}
-        animate={animateIn ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.35, ease: "easeOut", delay: 0.15 }}
+        viewport={{ once: true, amount: 0.5 }}
       >
         <img src="/landing/walnut.png" alt="Walnut allergen" className="dietary-demo-image" />
         <span className="dietary-demo-strike">
           <motion.span
             className="dietary-demo-strike-line"
             initial={{ scaleX: 0 }}
-            animate={animateIn ? { scaleX: 1 } : { scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
           />
         </span>
       </motion.div>
@@ -127,28 +132,31 @@ function DietaryFeatureVisual({ animateIn }) {
   );
 }
 
-function QuickMealFeatureVisual({ animateIn }) {
+function QuickMealFeatureVisual() {
   return (
     <div className="quickmeal-demo">
       <motion.div
         className="quickmeal-clock"
         initial={{ opacity: 0, scale: 0.82 }}
-        animate={animateIn ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.82 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
+        viewport={{ once: true, amount: 0.5 }}
       >
         <div className="quickmeal-clock-face">
           <span className="quickmeal-clock-ring" />
           <motion.span
             className="quickmeal-hand quickmeal-hour"
             initial={{ rotate: -55 }}
-            animate={animateIn ? { rotate: 55 } : { rotate: -55 }}
+            whileInView={{ rotate: 55 }}
             transition={{ duration: 1.1, ease: "easeInOut", delay: 0.15 }}
+            viewport={{ once: true, amount: 0.5 }}
           />
           <motion.span
             className="quickmeal-hand quickmeal-minute"
             initial={{ rotate: -120 }}
-            animate={animateIn ? { rotate: 120 } : { rotate: -120 }}
+            whileInView={{ rotate: 120 }}
             transition={{ duration: 1.1, ease: "easeInOut", delay: 0.15 }}
+            viewport={{ once: true, amount: 0.5 }}
           />
           <span className="quickmeal-center-dot" />
         </div>
@@ -157,50 +165,28 @@ function QuickMealFeatureVisual({ animateIn }) {
   );
 }
 
-function ScrollFeatureFrame({ progress, featureIndex, start, end }) {
-  const frameProgress = useTransform(progress, [start, end], [0, 1]);
-  const [hasAnimatedIn, setHasAnimatedIn] = useState(false);
-  const fadeWindow = 0.16;
-  const opacity = featureIndex === 2
-    ? useTransform(frameProgress, [0, fadeWindow, 1], [0, 1, 1])
-    : useTransform(
-        frameProgress,
-        [0, fadeWindow, 1 - fadeWindow, 1],
-        [0, 1, 1, 0]
-      );
-  const y = useTransform(frameProgress, [0, 1], [40, -40]);
-  const feature = features[featureIndex] ?? features[0];
-
-  useMotionValueEvent(frameProgress, "change", (latest) => {
-    if (!hasAnimatedIn && latest >= fadeWindow) {
-      setHasAnimatedIn(true);
-    }
-  });
-
+export function LandingFeatures() {
   return (
-    <motion.div className="feature-scroll-frame" style={{ opacity, y }}>
-      <div className="features-grid">
-        <LandingFeature
+    <div className="features-grid">
+      {features.map((feature, index) => (
+        <motion.div
           key={feature.title}
-          title={feature.title}
-          description={feature.description}
-          icon={feature.icon}
-          imageSrc={feature.imageSrc}
-          imageAlt={feature.imageAlt}
-          featureIndex={featureIndex}
-          animateIn={hasAnimatedIn}
-        />
-      </div>
-    </motion.div>
-  );
-}
-
-export function LandingFeatures({ scrollYProgress }) {
-  return (
-    <div className="features-scroll-stage" aria-hidden="true">
-      <ScrollFeatureFrame progress={scrollYProgress} featureIndex={0} start={0.16} end={0.44} />
-      <ScrollFeatureFrame progress={scrollYProgress} featureIndex={1} start={0.42} end={0.7} />
-      <ScrollFeatureFrame progress={scrollYProgress} featureIndex={2} start={0.68} end={0.96} />
+          className="feature-row"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.06 }}
+          viewport={{ once: true, amount: 0.25 }}
+        >
+          <LandingFeature
+            title={feature.title}
+            description={feature.description}
+            icon={feature.icon}
+            imageSrc={feature.imageSrc}
+            imageAlt={feature.imageAlt}
+            featureIndex={index}
+          />
+        </motion.div>
+      ))}
     </div>
   );
 }

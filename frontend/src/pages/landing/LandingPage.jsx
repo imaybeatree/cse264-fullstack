@@ -1,5 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import { Mail } from "lucide-react";
 import {LandingHeader} from "./LandingHeader"
 import {LandingBanner} from "./LandingBanner"
@@ -13,13 +12,6 @@ import "@/css/landing.css"
 // ];
 
 export default function LandingPage() {
-  const featuresRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: featuresRef,
-    offset: ["start start", "end end"],
-  });
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.21, 0.28, 1], [1, 1, 0, 0]);
-
   return (
     <div className="landing">
       <LandingHeader />
@@ -51,11 +43,14 @@ export default function LandingPage() {
         </div>
       </section> */}
 
-      <section id="features" ref={featuresRef} className="features-section features-scroll-section">
-        <div className="features-scroll-sticky">
+      <section id="features" className="features-section">
+        <div className="features-shell">
           <motion.div
-            className="section-header features-scroll-header"
-            style={{ opacity: titleOpacity }}
+            className="section-header"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.4 }}
           >
             <h2 className="section-title">Built for easier everyday cooking</h2>
             <p className="section-subtitle">
@@ -63,7 +58,7 @@ export default function LandingPage() {
               and easy to make.
             </p>
           </motion.div>
-          <LandingFeatures scrollYProgress={scrollYProgress} />
+          <LandingFeatures />
         </div>
       </section>
 

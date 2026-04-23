@@ -35,6 +35,7 @@ createRoot(document.getElementById('root')).render(
           {/* new routes */}
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />
           <Route path="/saved-recipes" element={<SavedRecipes/>}/>
+          <Route path="/account" element={<AccountPage/>}/>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
