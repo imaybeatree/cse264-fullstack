@@ -168,11 +168,11 @@ export default function HomePage() {
      {/* Search Bar */}
     <SearchBar onSearch={handleSearch} />
     {/* saved recipes */}
-    {!hasSearched && (
+    {/* {!hasSearched && (
       <SavedRecipe 
         savedRecipes={savedRecipes}
         onUnsave={handleUnsave}/>
-      )} 
+      )}  */}
     {/* Suggested recipes  */}
     <div className="suggested-section">
       <h2 className="home-title">Suggested Recipes</h2>
