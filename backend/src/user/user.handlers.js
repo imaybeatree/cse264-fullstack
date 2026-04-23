@@ -60,10 +60,11 @@ export async function getCurrentUser(req, res) {
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        email: true,
-        username: true,
-      },
+      omit: {
+        passwordHash: true,
+        onboarded: true,
+        verified: true
+      }
     });
 
     res.status(200).json(user);
