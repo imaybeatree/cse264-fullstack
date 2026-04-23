@@ -1,5 +1,5 @@
 import { transporter } from "./mailer.js";
-import { verificationEmailTemplate } from "./templates.js";
+import { verificationEmailTemplate, resetPwEmailTemplate } from "./templates.js";
 import { prisma } from "../db/db.js";
 import { generateJwtToken, verifyJwtToken } from "../auth/auth.token.handlers.js";
 
@@ -76,5 +76,34 @@ export const verifyEmailHandler = async (req, res) => {
   } catch (err) {
     console.error("Verify error:", err);
     res.status(400).json({ error: "Invalid or expired token" });
+  }
+};
+
+export const sendResetEmailHandler = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { email: email } });
+    if (!user) {
+      return res.status(200).json({ message: "If email exists, reset email sent" });
+    }
+
+    // add purpose so auth token can't be used
+    const resetToken = generateJwtToken({ userId: user.id, purpose: "password-reset" });
+    const baseUrl = process.env.NODE_ENV !== "production" ? "http://localhost:5173" : "https://quickbites.site"
+    const resetUrl = `${baseUrl}/reset?token=${resetToken}`;
+    const to = user.email;
+
+    await transporter.sendMail({
+      from: `QuickBites <${process.env.SMTP_USER}>`,
+      to,
+      subject: "Reset your password",
+      html: resetPwEmailTemplate(resetUrl),
+    });
+
+    res.status(200).json({ message: "If email exists, reset email sent" });
+  } catch (err) {
+    console.error("Mail error:", err);
+    res.status(500).json({ error: "Failed to send email" });
   }
 };

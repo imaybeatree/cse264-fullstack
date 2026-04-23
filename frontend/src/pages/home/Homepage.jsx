@@ -26,17 +26,31 @@ export default function HomePage() {
 
     // fetches data for search
     function loadRecipes( searchData, pageOffset) {
-      if (searchData.query) setHasSearched(true);
-      else setHasSearched(false);
+      // if (searchData.query) setHasSearched(true);
+      // else setHasSearched(false);
+      
       const params = new URLSearchParams();
+      const convenience = searchData.filters?.convenience || [];
+
 
       if (searchData.query) params.append("query", searchData.query);
-      if (searchData.filters?.diet?.length) params.append("diet", searchData.filters.diet.join(","));
+      // meal type e.g: breakfast, lunch, dinner
       if (searchData.filters?.mealType?.length) params.append("type", searchData.filters.mealType.join(","));
-      if (searchData.filters?.difficulty?.includes("Under 15 min")) params.append("maxReadyTime", "15");
-      else if (searchData.filters?.difficulty?.includes("Under 30 min")) params.append("maxReadyTime", "30");
-      else if (searchData.filters?.difficulty?.includes("Under 1 hour")) params.append("maxReadyTime", "60");
-      if (searchData.filters?.difficulty?.includes("5 ingredients or less")) params.append("maxIngredients", "5");
+      // time
+      if (searchData.filters?.time?.includes("Under 15 min")) params.append("maxReadyTime", "15");
+      else if (searchData.filters?.time?.includes("Under 30 min")) params.append("maxReadyTime", "30");
+      else if (searchData.filters?.time?.includes("Under 1 hour")) params.append("maxReadyTime", "60");
+     // 5 ingredients
+      if (convenience.includes("5 ingredients or less")) params.append("maxIngredients", "5");
+      // Microwave
+      if (convenience.includes("Microwave only")) params.append("equipment", "microwave");
+      // Easy (we’ll define this)
+      if (convenience.includes("Easy")) params.append("maxReadyTime", "30"); // or 20 if you want stricter
+      // nutrition
+       if (searchData.filters?.nutrition?.includes("High protein")) params.append("minProtein", "20");
+       if (searchData.filters?.nutrition?.includes("High fiber")) params.append("minFiber", "10");
+       if (searchData.filters?.nutrition?.includes("Low carbs")) params.append("maxCarbs", "60");
+      if (searchData.filters?.nutrition?.includes("Low calorie")) params.append("maxCalories", "400");
 
       // creating offset to only show 20 recipes
        params.append("offset", pageOffset);
@@ -121,6 +135,7 @@ export default function HomePage() {
   function handleSearch(searchData) {
     setOffset(0);  // reset on new search
     setCurrentSearch(searchData);
+    setHasSearched(true);
     loadRecipes(searchData, 0);
   }
 

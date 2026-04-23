@@ -162,6 +162,9 @@ export async function getFilteredRecipesHandler(req, res) {
   if (maxCalories) params.append("maxCalories", maxCalories);
   if (minFat) params.append("minFat", minFat);
   if (maxFat) params.append("maxFat", maxFat);
+  if (maxReadyTime) params.append("maxReadyTime", maxReadyTime);
+  if (maxIngredients) params.append("maxIngredients", maxIngredients);
+  if (equipment) params.append("equipment", equipment);
 
   try {
     const response = await fetch(`${BASE_URL}/complexSearch?${params}`);

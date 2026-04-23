@@ -12,6 +12,10 @@ import VerifyPage from './pages/auth/VerifyPage'
 import OnboardingPage from './pages/onboarding/OnboardingPage'
 import RecipeDetailPage from './pages/recipe/RecipeDetailPage'
 import SavedRecipes from './pages/recipe/SavedRecipes'
+import AccountPage from './pages/account/AccountPage'
+import NotFoundPage from './pages/NotFoundPage';
+import ResetPwPage from './pages/auth/ResetPwPage'
+import ForgotPwPage from './pages/auth/ForgotPwPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +25,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify" element={<VerifyPage />} />
+        <Route path="/reset" element={<ResetPwPage />} />
+        <Route path="/forgot" element={<ForgotPwPage />} />
         {/* Protected Routes */}
         <Route element={<RouteGuard />}>
           <Route path="/redirect" element={<RedirectPage />} />
@@ -30,6 +36,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />
           <Route path="/saved-recipes" element={<SavedRecipes/>}/>
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
 
