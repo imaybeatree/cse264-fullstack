@@ -68,7 +68,7 @@ export default function SavedRecipes() {
                   image={recipe.image}
                   time={recipe.readyInMinutes}
                   cost={recipe.pricePerServing / 100}
-                  calories={recipe.nutrition?.nutrients?.find((n) => n.name === "Calories")?.amount}
+                  calories={recipe.calories}
                   isSaved={true}
                   onSave={() => handleUnsave(recipe.recipeId)}
                 />

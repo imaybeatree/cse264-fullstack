@@ -91,7 +91,8 @@ export async function getSavedRecipesHandler(req, res) {
 // save a recipe
 export async function saveRecipeHandler(req, res) {
   const userId = res.locals.user.userId;
-  const { id, title, image, readyInMinutes, pricePerServing } = req.body;
+  const { id, title, image, readyInMinutes, pricePerServing, calories } = req.body;
+
   try {
     const existing = await prisma.savedRecipe.findUnique({
       where: { userId_recipeId: { userId, recipeId: id } },
@@ -99,7 +100,7 @@ export async function saveRecipeHandler(req, res) {
     if (existing) return res.status(409).json({ message: "Already saved" });
 
     const saved = await prisma.savedRecipe.create({
-      data: { userId, recipeId: id, title, image, readyInMinutes, pricePerServing },
+      data: { userId, recipeId: id, title, image, readyInMinutes, pricePerServing, calories},
     });
     res.status(201).json(saved);
   } catch (error) {
