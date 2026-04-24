@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { getToken } from "../lib/token"; // adjust path if needed
+import { getToken } from "../lib/token"; 
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
