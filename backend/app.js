@@ -58,6 +58,27 @@ app.use(middleware)
 app.use("/api/user", userRouter);
 app.use("/api/recipes", recipeRoutes);
 
+app.get("/api/ingredients/search", async (req, res) => {
+  const { query } = req.query;
+
+  if (!query) {
+    return res.json([]);
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.spoonacular.com/food/ingredients/search?query=${query}&number=5&apiKey=${process.env.SPOONACULAR_API_KEY}`
+    );
+
+    const data = await response.json();
+
+    res.json(data.results || []);
+  } catch (err) {
+    console.error("ingredient search error:", err);
+    res.status(500).json([]);
+  }
+});
+
 app.get("/test-auth", (req, res) => {
   res.json({
     message: "You are authenticated",
