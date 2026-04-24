@@ -29,6 +29,7 @@ export default function SavedRecipe({ savedRecipes, onUnsave }) {
     );
   }
 
+  console.log("savedRecipes in SavedRecipe:", savedRecipes);
   return (
     <div className="saved-section">
     <div className="saved-header">
@@ -54,7 +55,7 @@ export default function SavedRecipe({ savedRecipes, onUnsave }) {
                 image={recipe.image}
                 time={recipe.readyInMinutes}
                 cost={recipe.pricePerServing / 100}
-                calories={recipe.nutrition?.nutrients?.find((n) => n.name === "Calories")?.amount}
+                calories={recipe.calories}
                 isSaved={true}
                 onSave={() => onUnsave(recipe.recipeId)}
             />

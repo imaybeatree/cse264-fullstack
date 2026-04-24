@@ -99,6 +99,7 @@ export default function HomePage() {
       image: recipe.image,
       readyInMinutes: recipe.readyInMinutes,
       pricePerServing: recipe.pricePerServing,
+      calories: recipe.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount ?? null,
     })
       .then(res => res.json())
       .then(savedRecipe => {

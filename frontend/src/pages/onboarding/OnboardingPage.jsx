@@ -89,7 +89,7 @@ function IngredientChip({ item, onRemove }) {
   );
 }
 
-export default function OnboardingPage() {
+export default function OnboardingPage({isUpdating}) {
   const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
@@ -273,7 +273,12 @@ export default function OnboardingPage() {
       setSaved(true);
 
       setTimeout(() => {
-        navigate("/home");
+        if(isUpdating){
+        navigate("/account");
+        } else {
+          navigate("/home");
+        }
+
       }, 800);
     } catch (error) {
       console.error("onboarding save error:", error);
@@ -535,13 +540,13 @@ export default function OnboardingPage() {
             </div>
 
             <div className="onboarding-actions-right">
-              <button
+              {!isUpdating? <button
                 type="button"
                 className="secondary-btn"
                 onClick={handleSkip}
               >
                 Skip for Now
-              </button>
+              </button> : <></>}
 
               {step < 3 ? (
                 <button

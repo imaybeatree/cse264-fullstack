@@ -32,6 +32,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/redirect" element={<RedirectPage />} />
           <Route path="/home" element = {<HomePage/>} />
           <Route path="/onboarding" element={<OnboardingPage />} />
+          <Route path="/onboarding/update" element={<OnboardingPage isUpdating={true}/>} />
           {/* new routes */}
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />
           <Route path="/saved-recipes" element={<SavedRecipes/>}/>
