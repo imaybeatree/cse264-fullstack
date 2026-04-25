@@ -25,13 +25,22 @@ export default function SavedRecipes() {
   }, []);
 
   function handleUnsave(recipeId) {
+    // remove immediately
+    setSavedRecipes((prev) => {
+      const updated = prev.filter((r) => r.recipeId !== recipeId); // compare recipeId to recipeId
+      if (updated.length === 0) setMessage("You haven't saved any recipes yet."); // check updated length
+      return updated;
+    });
+
     http()
       .delete(`/api/user/saved-recipes/${recipeId}`)
-      .then(() => {
-        setSavedRecipes((prev) => prev.filter((r) => r.id !== recipeId));
-        if (savedRecipes.length === 1) setMessage("You haven't saved any recipes yet.");
-      })
-      .catch((err) => console.error("Failed to unsave recipe:", err));
+      .catch((err) => {
+      console.error("Failed to unsave recipe:", err);
+      // revert on failure by re-fetching
+      http().get("/api/user/saved-recipes")
+        .then((res) => res.json())
+        .then((data) => setSavedRecipes(data || []));
+      });
   }
 
   return (
