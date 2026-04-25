@@ -26,16 +26,25 @@ export default function LoginPage() {
         password,
       });
 
+      if (res.status === 401) {
+        setError("Invalid email/password");
+        return;
+      }
+
+      if (!res.ok) {
+        setError("Could not log in. Please try again.");
+        return;
+      }
+
       const data = await res.json();
       setToken(data.token);
-      if (res.status == 200 || res.status == 201) {
-        const params = new URLSearchParams(window.location.search);
-        const after = params.get("after") || "/home";
-        navigate(`/redirect?after=${encodeURIComponent(after)}`);
-      }
+
+      const params = new URLSearchParams(window.location.search);
+      const after = params.get("after") || "/home";
+      navigate(`/redirect?after=${encodeURIComponent(after)}`);
     } catch (err) {
       console.error("Login error:", err);
-      setError("Invalid email or password");
+      setError("Could not log in. Please try again.");
     }
   }
 
