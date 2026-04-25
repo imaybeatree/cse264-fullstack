@@ -32,18 +32,27 @@ export default function RegisterPage() {
         password,
       });
 
+      if (res.status === 409) {
+        setError("Email already in use");
+        return;
+      }
+
+      if (!res.ok) {
+        setError("Registration failed. Please try again.");
+        return;
+      }
+
       const data = await res.json();
       setToken(data.token);
-      if (res.status == 200 || res.status == 201) {
-        // send verification email
-        http().post("/api/mail/send").catch(() => {});
-        const params = new URLSearchParams(window.location.search);
-        const after = params.get("after") || "/home";
-        navigate(`/redirect?after=${encodeURIComponent(after)}`);
-      }
+
+      // send verification email
+      http().post("/api/mail/send").catch(() => {});
+      const params = new URLSearchParams(window.location.search);
+      const after = params.get("after") || "/home";
+      navigate(`/redirect?after=${encodeURIComponent(after)}`);
     } catch (err) {
       console.error("Register error:", err);
-      setError("Registration failed. Email may already be taken.");
+      setError("Registration failed. Please try again.");
     }
   }
 

@@ -12,9 +12,8 @@ const filterOptions = {
 
 export default function SearchBar({ onSearch }) {
  const [query, setQuery] = useState('');
- const [focused, setFocused] = useState(false);
+ const [showFilters, setShowFilters] = useState(false);
  const [selected, setSelected] = useState({});
-
 
 
  function toggleChip(category, value) {
@@ -29,14 +28,14 @@ export default function SearchBar({ onSearch }) {
    });
  }
 
+ function clearFilters() {
+   setSelected({});
+ }
+
 
  function handleSearch() {
-   // console.log("search clicked", query, selected);
    onSearch({ query, filters: selected });
-   if(!query) {
-
-   }
-   setFocused(false);
+   setShowFilters(false);
  }
 
 
@@ -48,30 +47,65 @@ export default function SearchBar({ onSearch }) {
          placeholder="Search recipes..."
          value={query}
          onChange={e => setQuery(e.target.value)}
-         onFocus={() => setFocused(true)}
        />
-       <button className="search-button" onClick={handleSearch}>Search</button>
+       <button
+         type="button"
+         className={`filter-button ${showFilters ? 'open' : ''}`}
+         onClick={() => setShowFilters(prev => !prev)}
+       >
+         Filters
+       </button>
+       <button type="button" className="search-button" onClick={handleSearch}>Search</button>
      </div>
 
-
-     {focused && (
-       <div className="filter-panel">
-         {Object.entries(filterOptions).map(([category, options]) => (
-           <div className="filter-section" key={category}>
-             <div className="filter-label">{category.toUpperCase()}</div>
-             <div className="filter-chips">
-               {options.map(option => (
-                 <span
-                   key={option}
-                   className={`chip ${(selected[category] || []).includes(option) ? 'active' : ''}`}
-                   onClick={() => toggleChip(category, option)}
-                 >
-                   {option}
-                 </span>
-               ))}
-             </div>
+     {showFilters && (
+       <div className="filter-dialog-backdrop" onClick={() => setShowFilters(false)}>
+         <div
+           className="filter-dialog"
+           role="dialog"
+           aria-modal="true"
+           aria-label="Recipe filters"
+           onClick={e => e.stopPropagation()}
+         >
+           <div className="filter-dialog-header">
+             <h2>Choose filters</h2>
+             <button
+               type="button"
+               className="filter-dialog-close"
+               onClick={() => setShowFilters(false)}
+               aria-label="Close filters"
+             >
+               x
+             </button>
            </div>
-         ))}
+           <div className="filter-panel">
+             {Object.entries(filterOptions).map(([category, options]) => (
+               <div className="filter-section" key={category}>
+                 <div className="filter-label">{category.toUpperCase()}</div>
+                 <div className="filter-chips">
+                   {options.map(option => (
+                     <button
+                       type="button"
+                       key={option}
+                       className={`chip ${(selected[category] || []).includes(option) ? 'active' : ''}`}
+                       onClick={() => toggleChip(category, option)}
+                     >
+                       {option}
+                     </button>
+                   ))}
+                 </div>
+               </div>
+             ))}
+           </div>
+           <div className="filter-dialog-actions">
+             <button type="button" className="filter-text-button" onClick={clearFilters}>
+               Clear all
+             </button>
+             <button type="button" className="search-button" onClick={handleSearch}>
+               Apply filters
+             </button>
+           </div>
+         </div>
        </div>
      )}
    </div>
